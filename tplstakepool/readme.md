@@ -14,7 +14,7 @@ When you are finished with customization you have to build the CSS and JS files 
 Make sure you have node.js and npm installed.
 
 ```bash
-cd $GOPATH/src/github.com/decred/dcrstakepool/tplstakepool
+cd $GOPATH/src/github.com/EXCCoin/exccstakepool/tplstakepool
 npm install
 npm install -g bower
 npm install -g grunt-cli

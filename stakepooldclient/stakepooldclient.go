@@ -6,9 +6,9 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 
-	"github.com/decred/dcrd/chaincfg/chainhash"
-	pb "github.com/decred/dcrstakepool/backend/stakepoold/rpc/stakepoolrpc"
-	"github.com/decred/dcrstakepool/models"
+	"github.com/EXCCoin/exccd/chaincfg/chainhash"
+	pb "github.com/EXCCoin/exccstakepool/backend/stakepoold/rpc/stakepoolrpc"
+	"github.com/EXCCoin/exccstakepool/models"
 	"golang.org/x/net/context"
 )
 

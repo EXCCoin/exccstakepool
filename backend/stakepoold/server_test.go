@@ -1,4 +1,5 @@
 // Copyright (c) 2017 The Decred developers
+// Copyright (c) 2018 The EXCCoin team
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 package main
@@ -11,9 +12,9 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/decred/dcrd/chaincfg"
-	"github.com/decred/dcrd/chaincfg/chainhash"
-	"github.com/decred/dcrstakepool/backend/stakepoold/userdata"
+	"github.com/EXCCoin/exccd/chaincfg"
+	"github.com/EXCCoin/exccd/chaincfg/chainhash"
+	"github.com/EXCCoin/exccstakepool/backend/stakepoold/userdata"
 )
 
 func TestCalculateFeeAddresses(t *testing.T) {

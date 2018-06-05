@@ -1,4 +1,5 @@
 // Copyright (c) 2016 The Decred developers
+// Copyright (c) 2018 The EXCCoin team
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -9,9 +10,9 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/EXCCoin/exccstakepool/backend/stakepoold/rpc/rpcserver"
+	"github.com/EXCCoin/exccstakepool/backend/stakepoold/userdata"
 	"github.com/btcsuite/btclog"
-	"github.com/decred/dcrstakepool/backend/stakepoold/rpc/rpcserver"
-	"github.com/decred/dcrstakepool/backend/stakepoold/userdata"
 	"github.com/jrick/logrotate/rotator"
 )
 

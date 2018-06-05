@@ -21,8 +21,10 @@ set -ex
 
 #Default GOVERSION
 GOVERSION=${1:-1.10}
-REPO=dcrstakepool
-DOCKER_IMAGE_TAG=decred-golang-builder-$GOVERSION
+GITHUB_ORG=EXCCoin
+GITHUB_REPO=exccstakepool
+DOCKER_ORG=exccco
+DOCKER_IMAGE_TAG=exchangecoin-golang-builder-$GOVERSION
 
 testrepo () {
   TMPFILE=$(mktemp)
@@ -85,22 +87,22 @@ if [ -f ~/.cache/$DOCKER_IMAGE_TAG.tar ]; then
 	fi
 else
 	# pull and save image to cache
-	docker pull decred/$DOCKER_IMAGE_TAG
+	docker pull $DOCKER_ORG/$DOCKER_IMAGE_TAG
 	if [ $? != 0 ]; then
 		echo 'docker pull failed'
 		exit 1
 	fi
-	docker save decred/$DOCKER_IMAGE_TAG > ~/.cache/$DOCKER_IMAGE_TAG.tar
+	docker save $DOCKER_ORG/$DOCKER_IMAGE_TAG > ~/.cache/$DOCKER_IMAGE_TAG.tar
 	if [ $? != 0 ]; then
 		echo 'docker save failed'
 		exit 1
 	fi
 fi
 
-docker run --rm -it -v $(pwd):/src decred/$DOCKER_IMAGE_TAG /bin/bash -c "\
+docker run --rm -it -v $(pwd):/src $DOCKER_ORG/$DOCKER_IMAGE_TAG /bin/bash -c "\
   rsync -ra --filter=':- .gitignore'  \
-  /src/ /go/src/github.com/decred/$REPO/ && \
-  cd github.com/decred/$REPO/ && \
+  /src/ /go/src/github.com/$GITHUB_ORG/$GITHUB_REPO/ && \
+  cd github.com/$GITHUB_ORG/$GITHUB_REPO/ && \
   bash run_tests.sh local"
 if [ $? != 0 ]; then
 	echo 'docker run failed'

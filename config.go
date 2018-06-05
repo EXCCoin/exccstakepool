@@ -1,5 +1,6 @@
 // Copyright (c) 2013-2014 The btcsuite developers
 // Copyright (c) 2015-2016 The Decred developers
+// Copyright (c) 2018 The EXCCoin team
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -15,18 +16,18 @@ import (
 	"strconv"
 	"strings"
 
+	"github.com/EXCCoin/exccd/exccutil"
 	flags "github.com/btcsuite/go-flags"
-	"github.com/decred/dcrd/dcrutil"
 )
 
 const (
 	defaultBaseURL          = "http://127.0.0.1:8000"
 	defaultClosePoolMsg     = "The stake pool is temporarily closed to new signups."
-	defaultConfigFilename   = "dcrstakepool.conf"
+	defaultConfigFilename   = "exccstakepool.conf"
 	defaultDataDirname      = "data"
 	defaultLogLevel         = "info"
 	defaultLogDirname       = "logs"
-	defaultLogFilename      = "dcrstakepool.log"
+	defaultLogFilename      = "exccstakepool.log"
 	defaultCookieSecure     = false
 	defaultDBHost           = "localhost"
 	defaultDBName           = "stakepool"
@@ -35,7 +36,7 @@ const (
 	defaultListen           = ":8000"
 	defaultPoolEmail        = "admin@example.com"
 	defaultPoolFees         = 7.5
-	defaultPoolLink         = "https://forum.decred.org/threads/rfp-6-setup-and-operate-10-stake-pools.1361/"
+	defaultPoolLink         = "https://forum.excc.org/threads/rfp-6-setup-and-operate-10-stake-pools.1361/"
 	defaultPublicPath       = "public"
 	defaultTemplatePath     = "views"
 	defaultRecaptchaSecret  = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
@@ -46,17 +47,17 @@ const (
 )
 
 var (
-	dcrstakepoolHomeDir = dcrutil.AppDataDir("dcrstakepool", false)
-	defaultConfigFile   = filepath.Join(dcrstakepoolHomeDir, defaultConfigFilename)
-	defaultDataDir      = filepath.Join(dcrstakepoolHomeDir, defaultDataDirname)
-	defaultLogDir       = filepath.Join(dcrstakepoolHomeDir, defaultLogDirname)
+	exccstakepoolHomeDir = exccutil.AppDataDir("exccstakepool", false)
+	defaultConfigFile    = filepath.Join(exccstakepoolHomeDir, defaultConfigFilename)
+	defaultDataDir       = filepath.Join(exccstakepoolHomeDir, defaultDataDirname)
+	defaultLogDir        = filepath.Join(exccstakepoolHomeDir, defaultLogDirname)
 )
 
 // runServiceCommand is only set to a real function on Windows.  It is used
 // to parse and execute service commands specified via the -s flag.
 var runServiceCommand func(string) error
 
-// config defines the configuration options for dcrd.
+// config defines the configuration options for exccd.
 //
 // See loadConfig for details on the configuration load process.
 type config struct {
@@ -121,7 +122,7 @@ type serviceOptions struct {
 func cleanAndExpandPath(path string) string {
 	// Expand initial ~ to OS specific home directory.
 	if strings.HasPrefix(path, "~") {
-		homeDir := filepath.Dir(dcrstakepoolHomeDir)
+		homeDir := filepath.Dir(exccstakepoolHomeDir)
 		path = strings.Replace(path, "~", homeDir, 1)
 	}
 
@@ -374,7 +375,7 @@ func loadConfig() (*config, []string, error) {
 
 	// Create the home directory if it doesn't already exist.
 	funcName := "loadConfig"
-	err = os.MkdirAll(dcrstakepoolHomeDir, 0700)
+	err = os.MkdirAll(exccstakepoolHomeDir, 0700)
 	if err != nil {
 		// Show a nicer error message if it's because a symlink is
 		// linked to a directory that does not exist (probably because
@@ -577,7 +578,7 @@ func loadConfig() (*config, []string, error) {
 
 	for idx := range cfg.WalletCerts {
 		if !fileExists(cfg.WalletCerts[idx]) {
-			path := filepath.Join(dcrstakepoolHomeDir, cfg.WalletCerts[idx])
+			path := filepath.Join(exccstakepoolHomeDir, cfg.WalletCerts[idx])
 			if !fileExists(path) {
 				str := "%s: walletcert " + cfg.WalletCerts[idx] + " and " +
 					path + " don't exist"
@@ -630,7 +631,7 @@ func loadConfig() (*config, []string, error) {
 
 		for idx := range cfg.StakepooldCerts {
 			if !fileExists(cfg.StakepooldCerts[idx]) {
-				path := filepath.Join(dcrstakepoolHomeDir,
+				path := filepath.Join(exccstakepoolHomeDir,
 					cfg.StakepooldCerts[idx])
 				if !fileExists(path) {
 					str := "%s: stakepooldcert " +

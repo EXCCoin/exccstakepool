@@ -1,5 +1,6 @@
 // Copyright (c) 2013-2015 The btcsuite developers
 // Copyright (c) 2015-2017 The Decred developers
+// Copyright (c) 2018 The EXCCoin team
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -20,8 +21,8 @@ import (
 
 	xcontext "golang.org/x/net/context"
 
-	"github.com/decred/dcrd/certgen"
-	"github.com/decred/dcrstakepool/backend/stakepoold/rpc/rpcserver"
+	"github.com/EXCCoin/exccd/certgen"
+	"github.com/EXCCoin/exccstakepool/backend/stakepoold/rpc/rpcserver"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"sync"
 
-	"github.com/decred/dcrd/chaincfg/chainhash"
+	"github.com/EXCCoin/exccd/chaincfg/chainhash"
 )
 
 type DBConfig struct {
