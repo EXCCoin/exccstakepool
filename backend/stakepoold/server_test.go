@@ -18,13 +18,18 @@ import (
 )
 
 func TestCalculateFeeAddresses(t *testing.T) {
-	xpubStr := "tpubVpQL1h9UcY9c1BPZYfjYEtw5froRAvqZEo6sn5Tji6VkhcpfMaQ6id9Spf5iNvprRTcpdF5pj7m5Suyu1E8iC4xnb6MkjUnCJureTsmdXfG"
+	xpubStr := "xpub6BpcvynN5SeJND9vFj1noMPwb4SWqjKGmvPq65GToQnob9UbhirCetBWzXm7c3oXPzG9r5VcaPWcaFw6hgizKn6rFk29sLShxwKYFrf5LHR"
 	firstAddrs := []string{
-		"TsYLznZJn2xhM9F7Vnt7i39NuUFENGx9Hff",
-		"TsiWMbdbmfMaJ9SDb7ig8EKfYp3KU3pvYfu",
-		"TsgTraHPFWes88oTjpPVy7SEroJvgShv1G1",
+		"22tv7nd31sMmD8BpcVRJAWQLqYCjaCuqpWpz",
+		"22u4VtFDzXDT517DFfCLRM8i5t814pZXePBK",
+		"22u8LM7siis3LUTKfJSnhoHAgh1d1igVdoZi",
+		"22u4Qur3XjYLpHJyxxvrmFXRTzCmANFTDUYX",
+		"22u7vimxVWBb3axtC2uHyCTprXs74pxC6n2o",
+		"22tt57MfvPr3aotqKwQNKiMc12jhSPCVBbzr",
+		"22u1VbEvX9Kapqukc7oshGcnt2ZCCeaYEDCP",
+		"22tyuR7Ais8NZirdkToEo7qruMZ6maPqXSG1",
 	}
-	params := &chaincfg.TestNet2Params
+	params := &chaincfg.MainNetParams
 
 	// calculateFeeAddresses is currently hard-coded to return 10,000 addresses
 	numAddr := 10000
@@ -55,9 +60,9 @@ func TestCalculateFeeAddresses(t *testing.T) {
 
 	// wrong network
 	expectedErr := fmt.Errorf("extended public key is for wrong network")
-	addrs, err = calculateFeeAddresses(xpubStr, &chaincfg.MainNetParams)
+	addrs, err = calculateFeeAddresses(xpubStr, &chaincfg.TestNet2Params)
 	if err == nil {
-		t.Error("calculateFeeAddresses did not error with wrong network parmas")
+		t.Error("calculateFeeAddresses did not error with wrong network params")
 	}
 	if err.Error() != expectedErr.Error() {
 		t.Errorf("expected error %v, got %v", expectedErr, err)
