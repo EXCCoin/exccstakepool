@@ -8,7 +8,7 @@
   revision = "e1a805ee5d9f5e64352b9b509d18413991cceffb"
 
 [[projects]]
-  branch = "master"
+  branch = "task/DEX-161_test_mainnet"
   name = "github.com/EXCCoin/exccd"
   packages = [
     "blockchain",
@@ -35,10 +35,10 @@
     "txscript",
     "wire"
   ]
-  revision = "f99f17e7219728eb971206e907670738729e2c1a"
+  revision = "aa948f256c3462d371293dcf9a17c0d53843a945"
 
 [[projects]]
-  branch = "master"
+  branch = "feature/DEX-152_mnemonic_compatibility"
   name = "github.com/EXCCoin/exccwallet"
   packages = [
     "apperrors",
@@ -49,7 +49,7 @@
     "wallet/udb",
     "walletdb"
   ]
-  revision = "fe87d1cb3bf2478d1bed1bf7bf0e48eaee75f0cf"
+  revision = "39e3c3c6f1167aed175a6c431c661e47be555973"
 
 [[projects]]
   branch = "master"
