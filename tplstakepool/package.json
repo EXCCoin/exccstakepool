@@ -1,7 +1,7 @@
 {
   "name": "stakepool",
   "version": "1.0.0",
-  "description": "decred",
+  "description": "excc",
   "main": "index.html",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -1,4 +1,5 @@
 // Copyright (c) 2017 The Decred developers
+// Copyright (c) 2018 The EXCCoin team
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -20,19 +21,19 @@ import (
 	"sync"
 	"time"
 
-	"github.com/decred/dcrd/blockchain/stake"
-	"github.com/decred/dcrd/chaincfg"
-	"github.com/decred/dcrd/chaincfg/chainhash"
-	"github.com/decred/dcrd/dcrjson"
-	"github.com/decred/dcrd/dcrutil"
-	"github.com/decred/dcrd/hdkeychain"
-	"github.com/decred/dcrd/rpcclient"
-	"github.com/decred/dcrd/wire"
+	"github.com/EXCCoin/exccd/blockchain/stake"
+	"github.com/EXCCoin/exccd/chaincfg"
+	"github.com/EXCCoin/exccd/chaincfg/chainhash"
+	"github.com/EXCCoin/exccd/exccjson"
+	"github.com/EXCCoin/exccd/exccutil"
+	"github.com/EXCCoin/exccd/hdkeychain"
+	"github.com/EXCCoin/exccd/rpcclient"
+	"github.com/EXCCoin/exccd/wire"
 
-	"github.com/decred/dcrstakepool/backend/stakepoold/rpc/rpcserver"
-	"github.com/decred/dcrstakepool/backend/stakepoold/userdata"
-	"github.com/decred/dcrwallet/wallet/txrules"
-	"github.com/decred/dcrwallet/wallet/udb"
+	"github.com/EXCCoin/exccstakepool/backend/stakepoold/rpc/rpcserver"
+	"github.com/EXCCoin/exccstakepool/backend/stakepoold/userdata"
+	"github.com/EXCCoin/exccwallet/wallet/txrules"
+	"github.com/EXCCoin/exccwallet/wallet/udb"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -164,8 +165,8 @@ func calculateFeeAddresses(xpubStr string, params *chaincfg.Params) (map[string]
 	return addrMap, nil
 }
 
-func deriveChildAddresses(key *hdkeychain.ExtendedKey, startIndex, count uint32, params *chaincfg.Params) ([]dcrutil.Address, error) {
-	addresses := make([]dcrutil.Address, 0, count)
+func deriveChildAddresses(key *hdkeychain.ExtendedKey, startIndex, count uint32, params *chaincfg.Params) ([]exccutil.Address, error) {
+	addresses := make([]exccutil.Address, 0, count)
 	for i := uint32(0); i < count; {
 		child, err := key.Child(startIndex + i)
 		if err == hdkeychain.ErrInvalidChild {
@@ -187,7 +188,7 @@ func deriveChildAddresses(key *hdkeychain.ExtendedKey, startIndex, count uint32,
 // evaluateStakePoolTicket evaluates a stake pool ticket to see if it's
 // acceptable to the stake pool. The ticket must pay out to the stake
 // pool cold wallet, and must have a sufficient fee.
-func evaluateStakePoolTicket(ctx *appContext, tx *wire.MsgTx, blockHeight int32, poolUser dcrutil.Address) (bool, error) {
+func evaluateStakePoolTicket(ctx *appContext, tx *wire.MsgTx, blockHeight int32, poolUser exccutil.Address) (bool, error) {
 	// Check the first commitment output (txOuts[1])
 	// and ensure that the address found there exists
 	// in the list of approved addresses. Also ensure
@@ -202,7 +203,7 @@ func evaluateStakePoolTicket(ctx *appContext, tx *wire.MsgTx, blockHeight int32,
 	}
 
 	// Extract the fee from the ticket.
-	in := dcrutil.Amount(0)
+	in := exccutil.Amount(0)
 	for i := range tx.TxOut {
 		if i%2 != 0 {
 			commitAmt, err := stake.AmountFromSStxPkScrCommitment(
@@ -214,9 +215,9 @@ func evaluateStakePoolTicket(ctx *appContext, tx *wire.MsgTx, blockHeight int32,
 			in += commitAmt
 		}
 	}
-	out := dcrutil.Amount(0)
+	out := exccutil.Amount(0)
 	for i := range tx.TxOut {
-		out += dcrutil.Amount(tx.TxOut[i].Value)
+		out += exccutil.Amount(tx.TxOut[i].Value)
 	}
 	fees := in - out
 
@@ -231,7 +232,7 @@ func evaluateStakePoolTicket(ctx *appContext, tx *wire.MsgTx, blockHeight int32,
 
 		// Calculate the fee required based on the current
 		// height and the required amount from the pool.
-		feeNeeded := txrules.StakePoolTicketFee(dcrutil.Amount(
+		feeNeeded := txrules.StakePoolTicketFee(exccutil.Amount(
 			tx.TxOut[0].Value), fees, blockHeight, ctx.poolFees,
 			ctx.params)
 		if commitAmt < feeNeeded {
@@ -310,10 +311,10 @@ func runMain() error {
 	var walletVer semver
 	walletConn, walletVer, err := connectWalletRPC(cfg)
 	if err != nil || walletConn == nil {
-		log.Infof("Connection to dcrwallet failed: %v", err)
+		log.Infof("Connection to exccwallet failed: %v", err)
 		return err
 	}
-	log.Infof("Connected to dcrwallet (JSON-RPC API v%s)",
+	log.Infof("Connected to exccwallet (JSON-RPC API v%s)",
 		walletVer.String())
 	walletInfoRes, err := walletConn.WalletInfo()
 	if err != nil || walletInfoRes == nil {
@@ -373,7 +374,7 @@ func runMain() error {
 	// Daemon client connection
 	nodeConn, nodeVer, err := connectNodeRPC(ctx, cfg)
 	if err != nil || nodeConn == nil {
-		log.Infof("Connection to dcrd failed: %v", err)
+		log.Infof("Connection to exccd failed: %v", err)
 		return err
 	}
 	ctx.nodeConnection = nodeConn
@@ -381,10 +382,10 @@ func runMain() error {
 	// Display connected network
 	curnet, err := nodeConn.GetCurrentNet()
 	if err != nil {
-		log.Errorf("Unable to get current network from dcrd: %v", err)
+		log.Errorf("Unable to get current network from exccd: %v", err)
 		return err
 	}
-	log.Infof("Connected to dcrd (JSON-RPC API v%s) on %v",
+	log.Infof("Connected to exccd (JSON-RPC API v%s) on %v",
 		nodeVer.String(), curnet.String())
 
 	// prune save data
@@ -430,7 +431,7 @@ func runMain() error {
 	for {
 		curHash, curHeight, err := nodeConn.GetBestBlock()
 		if err != nil {
-			log.Errorf("unable to get bestblock from dcrd: %v", err)
+			log.Errorf("unable to get bestblock from exccd: %v", err)
 			return err
 		}
 		log.Infof("current block height %v hash %v", curHeight, curHash)
@@ -443,7 +444,7 @@ func runMain() error {
 
 		afterHash, afterHeight, err := nodeConn.GetBestBlock()
 		if err != nil {
-			log.Errorf("unable to get bestblock from dcrd: %v", err)
+			log.Errorf("unable to get bestblock from exccd: %v", err)
 			return err
 		}
 
@@ -476,7 +477,7 @@ func runMain() error {
 			"spent/missed tickets notifications: %s\n", err.Error())
 		return err
 	}
-	log.Info("subscribed to notifications from dcrd")
+	log.Info("subscribed to notifications from exccd")
 
 	if !cfg.NoRPCListen {
 		startGRPCServers(ctx.grpcCommandQueueChan)
@@ -759,7 +760,7 @@ type ticketMetadata struct {
 	voteBitsExtended string                    // voteBits extended
 }
 
-// getticket pulls the transaction information for a ticket from dcrwallet. This is a go routine!
+// getticket pulls the transaction information for a ticket from exccwallet. This is a go routine!
 func (ctx *appContext) getticket(wg *sync.WaitGroup, nt *ticketMetadata) {
 	start := time.Now()
 
@@ -882,7 +883,7 @@ func (ctx *appContext) vote(wg *sync.WaitGroup, blockHash *chainhash.Hash, block
 	}()
 
 	// Ask wallet to generate vote result.
-	var res *dcrjson.GenerateVoteResult
+	var res *exccjson.GenerateVoteResult
 	res, w.err = ctx.walletConnection.GenerateVote(blockHash, blockHeight,
 		w.ticket, w.config.VoteBits, ctx.votingConfig.VoteBitsExtended)
 	if w.err != nil || res.Hex == "" {
@@ -950,7 +951,7 @@ func (ctx *appContext) processNewTickets(nt NewTicketsForBlock) {
 		}
 
 		// decode address
-		addr, err := dcrutil.DecodeAddress(n.msa)
+		addr, err := exccutil.DecodeAddress(n.msa)
 		if err != nil {
 			log.Warnf("invalid address %v", err)
 			continue
@@ -1130,7 +1131,7 @@ func (ctx *appContext) processWinningTickets(wt WinningTicketsForBlock) {
 		} else {
 			// If the user's voting config has a vote version that
 			// is different from our global vote version that we
-			// plucked from dcrwallet walletinfo then just use the
+			// plucked from exccwallet walletinfo then just use the
 			// default votebits.
 			if voteCfg.VoteBitsVersion !=
 				ctx.votingConfig.VoteVersion {

@@ -11,10 +11,10 @@ import (
 
 	"github.com/gorilla/context"
 
-	"github.com/decred/dcrd/rpcclient"
-	"github.com/decred/dcrstakepool/controllers"
-	"github.com/decred/dcrstakepool/stakepooldclient"
-	"github.com/decred/dcrstakepool/system"
+	"github.com/EXCCoin/exccd/rpcclient"
+	"github.com/EXCCoin/exccstakepool/controllers"
+	"github.com/EXCCoin/exccstakepool/stakepooldclient"
+	"github.com/EXCCoin/exccstakepool/system"
 
 	"github.com/zenazn/goji/graceful"
 	"github.com/zenazn/goji/web"

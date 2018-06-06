@@ -1,5 +1,6 @@
 // Copyright (c) 2015-2016 The btcsuite developers
 // Copyright (c) 2016-2017 The Decred developers
+// Copyright (c) 2018 The EXCCoin team
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -9,7 +10,7 @@
 // Full documentation of the API implemented by this package is maintained in a
 // language-agnostic document:
 //
-// TODO Document gRPC API like dcrwallet once the API is stable
+// TODO Document gRPC API like exccwallet once the API is stable
 package rpcserver
 
 import (
@@ -18,16 +19,16 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
-	"github.com/decred/dcrd/chaincfg/chainhash"
-	pb "github.com/decred/dcrstakepool/backend/stakepoold/rpc/stakepoolrpc"
-	"github.com/decred/dcrstakepool/backend/stakepoold/userdata"
+	"github.com/EXCCoin/exccd/chaincfg/chainhash"
+	pb "github.com/EXCCoin/exccstakepool/backend/stakepoold/rpc/stakepoolrpc"
+	"github.com/EXCCoin/exccstakepool/backend/stakepoold/userdata"
 )
 
 // Public API version constants
 const (
 	// The most probable reason for a command timing out would be because a
 	// deadlock has occurred in the main process.  We want to reply with an
-	// error message in this case before dcrstakepool applies a client timeout.
+	// error message in this case before exccstakepool applies a client timeout.
 	// The commands are basic map operations and copies and typically complete
 	// within one millisecond.  It is possible for an abnormally long garbage
 	// collection cycle to also trigger a timeout but the current allocation

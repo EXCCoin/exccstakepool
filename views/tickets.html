@@ -40,35 +40,35 @@
     <div id="collapse-instr" class="panel-collapse collapse {{if not .TicketsLive}}in{{end}}">
       <div class="panel-body">
 			<p><strong><u>Step 1</u></strong></p>
-			<p><strong>The official Decred GUI wallet
-        <a href="https://decred.org/downloads/#decrediton">Decrediton</a>
+			<p><strong>The official EXCCoin GUI wallet
+        <a href="https://excc.co/downloads/#exilibrium">Exilibrium</a>
         is the recommended way to use stake pools.  All you need to get started
         is to copy and paste the API Token from the <a href="/settings">Settings Page</a>.  A more
         comprehensive guide is available for
-        <a href="https://docs.decred.org/getting-started/user-guides/decrediton-setup/">Decrediton</a>.
+        <a href="https://docs.excc.co/getting-started/user-guides/exilibrium-setup/">Exilibrium</a>.
 				There is also a more general overview of the staking process available
-				<a href="https://docs.decred.org/mining/proof-of-stake/#automatic-purchasing-of-tickets" target="_blank">here</a>.</strong></p>
-			<p><strong>It is recommended to use the latest versions of the Decred software before starting.&nbsp;</strong>
-			<a href="https://decred.org/downloads/" target="_blank"><span aria-label="Decred Downloads Page"> &#8675; Decred Downloads Page</span></a>
-			The <a href="https://docs.decred.org/getting-started/user-guides/dcrwallet-tickets/">dcrwallet instructions</a>
+				<a href="https://docs.excc.co/mining/proof-of-stake/#automatic-purchasing-of-tickets" target="_blank">here</a>.</strong></p>
+			<p><strong>It is recommended to use the latest versions of the EXCCoin software before starting.&nbsp;</strong>
+			<a href="https://excc.co/downloads/" target="_blank"><span aria-label="EXCCoin Downloads Page"> &#8675; EXCCoin Downloads Page</span></a>
+			The <a href="https://docs.excc.co/getting-started/user-guides/exccwallet-tickets/">exccwallet instructions</a>
       are the most helpful if you wish to continue on the command-line path.</p>
 			<p><strong><u>Step 2</u></strong></p>
 			<p>Your multisignature script for delegating votes has been generated.
-			Please first import it locally into your wallet using <b>dcrctl</b> for
+			Please first import it locally into your wallet using <b>exccctl</b> for
 			safe keeping, so you can recover your funds and vote in the unlikely
 			event of a pool failure:</p>
 
-			<p>dcrctl --wallet importscript "script"</p>
+			<p>exccctl --wallet importscript "script"</p>
 			<p>For example:</p>
-			<div class="cmd"><pre>$ dcrctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet importscript {{ .User.MultiSigScript }}</pre></div>
+			<div class="cmd"><pre>$ exccctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet importscript {{ .User.MultiSigScript }}</pre></div>
 
 			<p>After successfully importing the script into your wallet, you may
 				purchase tickets with voting rights delegated to the pool in either of
 				two ways:</p>
 
 			<p><strong><u>Step 3</u></strong></p>
-			<p><strong>Option A - dcrwallet - Automatic purchasing</strong></p>
-			<p>Stop dcrwallet if it is currently running and add the following to <strong>dcrwallet.conf</strong>:</p>
+			<p><strong>Option A - exccwallet - Automatic purchasing</strong></p>
+			<p>Stop exccwallet if it is currently running and add the following to <strong>exccwallet.conf</strong>:</p>
 <pre>
 [Application Options]
 enableticketbuyer=true
@@ -80,13 +80,13 @@ poolfees={{ .PoolFees }}
 ticketbuyer.votingaddress={{ .User.MultiSigAddress }}
 ticketbuyer.maxpriceabsolute=100
 </pre>
-      <p>Unlock dcrwallet and it will automatically purchase stake tickets delegated to the pool address.</p>
+      <p>Unlock exccwallet and it will automatically purchase stake tickets delegated to the pool address.</p>
 
-			<p><strong>Option B - dcrwallet - Manual purchasing</strong></p>
-			<p>Start a wallet with funds available and manually purchase tickets with the following command using <strong>dcrctl</strong>:</p>
-			<p>dcrctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "fromaccount" spendlimit minconf ticketaddress numtickets poolfeeaddress poolfeeamt</p>
+			<p><strong>Option B - exccwallet - Manual purchasing</strong></p>
+			<p>Start a wallet with funds available and manually purchase tickets with the following command using <strong>exccctl</strong>:</p>
+			<p>exccctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "fromaccount" spendlimit minconf ticketaddress numtickets poolfeeaddress poolfeeamt</p>
 <pre>
-dcrctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "default" 100 1 {{ .User.MultiSigAddress }} 1 {{ .User.UserFeeAddr }} {{ .PoolFees}}</pre>
+exccctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "default" 100 1 {{ .User.MultiSigAddress }} 1 {{ .User.UserFeeAddr }} {{ .PoolFees}}</pre>
 			<p>Will purchase a ticket delegated to the the multisig address which
 				allows either your or the pool to vote when the ticket is called. This
 				uses funds from the default account only if the current network price
@@ -95,9 +95,9 @@ dcrctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "de
 			<p><strong><u>Step 4 (Optional)</u></strong></p>
 			<p><strong>Voting</strong></p>
 			<p>If you wish to cast votes yourself, please review the guides
-			<a href="https://docs.decred.org/getting-started/user-guides/agenda-voting/#how-to-vote">How To Vote</a>
+			<a href="https://docs.excc.co/getting-started/user-guides/agenda-voting/#how-to-vote">How To Vote</a>
 			and
-			<a href="https://docs.decred.org/getting-started/user-guides/agenda-voting/#solo-voting">Solo-Voting</a>.
+			<a href="https://docs.excc.co/getting-started/user-guides/agenda-voting/#solo-voting">Solo-Voting</a>.
 			The preferences you set on this stake pool's <a href="/voting">voting page</a>
 			only affect the stake pool's voting wallets and not your own.</p>
       </div>
@@ -128,7 +128,7 @@ dcrctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "de
 			</thead>
 			<tbody>
 			{{ range $i, $data := .TicketsLive }}<tr>
-				<td><a href="https://{{$.Network}}.decred.org/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+				<td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
 				<td>{{ $data.TicketHeight }}</td>
 				</tr>{{end}}
 			</tbody>
@@ -169,8 +169,8 @@ dcrctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "de
 			</thead>
 			<tbody>
 			{{ range $i, $data := .TicketsVoted }}<tr>
-				<td><a href="https://{{$.Network}}.decred.org/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
-				<td><a href="https://{{$.Network}}.decred.org/tx/{{$data.SpentBy}}" target="_blank">{{$data.SpentByHeight}}</a></td>
+				<td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+				<td><a href="https://{{$.Network}}.excc.co/tx/{{$data.SpentBy}}" target="_blank">{{$data.SpentByHeight}}</a></td>
 				<td>{{$data.TicketHeight}}</td>
 				</tr>{{end}}
 			</tbody>
@@ -215,7 +215,7 @@ dcrctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "de
 			</thead>
 			<tbody>
 			{{ range $i, $data := .TicketsMissed }}<tr>
-				<td><a href="https://{{$.Network}}.decred.org/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+				<td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
 				<td>{{$data.SpentByHeight}}</td>
 				<td>{{$data.TicketHeight}}</td>
 				</tr>{{end}}
@@ -259,7 +259,7 @@ dcrctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "de
 			</thead>
 			<tbody>
 			{{ range $i, $data := .TicketsExpired }}<tr>
-				<td><a href="https://{{$.Network}}.decred.org/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+				<td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
 				<td>{{$data.SpentByHeight}}</td>
 				<td>{{$data.TicketHeight}}</td>
 				</tr>{{end}}
@@ -304,7 +304,7 @@ dcrctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "de
 			</thead>
 			<tbody>
 			{{ range $i, $data := .TicketsInvalid }}<tr>
-				<td><a href="https://{{$.Network}}.decred.org/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+				<td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
 				</tr>{{end}}
 			</tbody>
 			<tfoot>

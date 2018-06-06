@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/decred/dcrstakepool/models"
+	"github.com/EXCCoin/exccstakepool/models"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/go-gorp/gorp"
 	"github.com/gorilla/sessions"

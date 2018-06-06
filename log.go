@@ -1,4 +1,5 @@
 // Copyright (c) 2016 The Decred developers
+// Copyright (c) 2018 The EXCCoin team
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
@@ -9,11 +10,11 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/EXCCoin/exccstakepool/controllers"
+	"github.com/EXCCoin/exccstakepool/models"
+	"github.com/EXCCoin/exccstakepool/stakepooldclient"
+	"github.com/EXCCoin/exccstakepool/system"
 	"github.com/btcsuite/btclog"
-	"github.com/decred/dcrstakepool/controllers"
-	"github.com/decred/dcrstakepool/models"
-	"github.com/decred/dcrstakepool/stakepooldclient"
-	"github.com/decred/dcrstakepool/system"
 	"github.com/jrick/logrotate/rotator"
 )
 
@@ -47,7 +48,7 @@ var (
 	logRotator *rotator.Rotator
 
 	controllersLog      = backendLog.Logger("CNTL")
-	log                 = backendLog.Logger("DCRS")
+	log                 = backendLog.Logger("EXCS")
 	modelsLog           = backendLog.Logger("MODL")
 	stakepooldclientLog = backendLog.Logger("GRPC")
 	systemLog           = backendLog.Logger("SYTM")
@@ -63,7 +64,7 @@ func init() {
 
 // subsystemLoggers maps each subsystem identifier to its associated logger.
 var subsystemLoggers = map[string]btclog.Logger{
-	"DCRS": log,
+	"EXCS": log,
 	"CNTL": controllersLog,
 	"GRPC": stakepooldclientLog,
 	"MODL": modelsLog,
