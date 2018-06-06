@@ -36,7 +36,7 @@ const (
 	defaultListen           = ":8000"
 	defaultPoolEmail        = "admin@example.com"
 	defaultPoolFees         = 7.5
-	defaultPoolLink         = "https://forum.excc.org/threads/rfp-6-setup-and-operate-10-stake-pools.1361/"
+	defaultPoolLink         = "https://forum.excc.co/threads/rfp-6-setup-and-operate-10-stake-pools.1361/"
 	defaultPublicPath       = "public"
 	defaultTemplatePath     = "views"
 	defaultRecaptchaSecret  = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"

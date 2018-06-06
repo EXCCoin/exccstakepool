@@ -6,8 +6,8 @@
 
 exccstakepool is a web application which coordinates generating 1-of-2 multisig
 addresses on a pool of [exccwallet](https://github.com/EXCCoin/exccwallet) servers
-so users can purchase [proof-of-stake tickets](https://docs.excc.org/mining/proof-of-stake/)
-on the [EXCCoin](https://excc.org/) network and have the pool of wallet servers
+so users can purchase [proof-of-stake tickets](https://docs.excc.co/mining/proof-of-stake/)
+on the [EXCCoin](https://excc.co/) network and have the pool of wallet servers
 vote on their behalf when the ticket is selected.
 
 ## Architecture

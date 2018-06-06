@@ -48,7 +48,7 @@ var (
 	logRotator *rotator.Rotator
 
 	controllersLog      = backendLog.Logger("CNTL")
-	log                 = backendLog.Logger("DCRS")
+	log                 = backendLog.Logger("EXCS")
 	modelsLog           = backendLog.Logger("MODL")
 	stakepooldclientLog = backendLog.Logger("GRPC")
 	systemLog           = backendLog.Logger("SYTM")
@@ -64,7 +64,7 @@ func init() {
 
 // subsystemLoggers maps each subsystem identifier to its associated logger.
 var subsystemLoggers = map[string]btclog.Logger{
-	"DCRS": log,
+	"EXCS": log,
 	"CNTL": controllersLog,
 	"GRPC": stakepooldclientLog,
 	"MODL": modelsLog,
