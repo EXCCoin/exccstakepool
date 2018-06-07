@@ -1,0 +1,16 @@
+version: "3.3"
+
+services:
+  stakepoold:
+#    image: exccco/exchangecoin_stakepoold:latest
+    build: .
+    ports:
+     - "5110:9110"
+    networks:
+      - stakepool
+    working_dir: /go/bin
+    command: stakepoold --rpclisten=0.0.0.0:9110
+
+networks:
+  stakepool:
+    driver: bridge
