@@ -7,26 +7,33 @@ services:
      - "5666:9666"
      - "5109:9109"
     networks:
-      - server
+      serv:
+        ipv4_address: 10.5.0.2
     working_dir: /go/bin
     command: exccd --generate --miningaddr 22u4E52pCXS6fmQpdoukwXJu8ptod1kWxa5n -u rpcuser -P rpcpass --rpclisten=0.0.0.0:9109
   wallet:
     image: exccco/exchangecoin_wallet:latest
     ports:
      - "5111:9111"
+     - "5112:9110"
     networks:
-      - server
+      serv:
+        ipv4_address: 10.5.0.3
     working_dir: /go/bin
-    command: exccwallet --noinitialload --rpclisten=0.0.0.0:9111
+    command: exccwallet -u rpcuser -P rpcpass --grpclisten=0.0.0.0:9111 --rpclisten=0.0.0.0:9110 --appdata=/.exccwallet/ --stakepoolcoldextkey=xpub661MyMwAqRbcEgiqwvTMCho6G1tqAFt4f6juMptKPL3ajvebXoigJS3VwpiWocyPgn54aAqfWpeMgTsHB8xKZDyJJchMUtNzcKp2wENabkb
   stakepoold:
     image: exccco/exchangecoin_stakepoold:latest
     ports:
      - "5110:9110"
     networks:
-      - server
+      serv:
+        ipv4_address: 10.5.0.4
     working_dir: /go/bin
-    command: stakepoold --coldwalletextpub=xpub661MyMwAqRbcEgiqwvTMCho6G1tqAFt4f6juMptKPL3ajvebXoigJS3VwpiWocyPgn54aAqfWpeMgTsHB8xKZDyJJchMUtNzcKp2wENabkb --dbhost=localhost --dbport=3306 --dbname=stakepool --dbuser=stakepool --dbpassword=excc --exccdhost=127.0.0.1 --exccdcert=../.exccd/rpc.cert --exccduser=user --exccdpassword=pass --wallethost=127.0.0.1 --walletcert=../.exccwallet/rpc.cert --walletuser=user --walletpassword=pass --rpclisten=0.0.0.0
+    command: stakepoold --coldwalletextpub=xpub661MyMwAqRbcEgiqwvTMCho6G1tqAFt4f6juMptKPL3ajvebXoigJS3VwpiWocyPgn54aAqfWpeMgTsHB8xKZDyJJchMUtNzcKp2wENabkb --dbhost=localhost --dbport=3306 --dbname=stakepool --dbuser=stakepool --dbpassword=excc --exccdhost=10.5.0.2 --exccdcert=rpc.cert --exccduser=rpcuser --exccdpassword=rpcpass --wallethost=10.5.0.3 --walletcert=rpc.cert --walletuser=user --walletpassword=user --rpclisten=0.0.0.0:9110 --appdata=/.stakepoold/
 
 networks:
-  server:
+  serv:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/24
