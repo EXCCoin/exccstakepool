@@ -6,6 +6,6 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: exccd
-      MYSQL_USER: excc
-      MYSQL_PASSWORD: excc
+      MYSQL_DATABASE: stakepool
+      MYSQL_USER: stakepool
+      MYSQL_PASSWORD: stakepool
