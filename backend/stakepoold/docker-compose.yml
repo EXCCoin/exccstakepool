@@ -9,7 +9,9 @@ services:
     networks:
       - stakepool
     working_dir: /go/bin
-    command: stakepoold --coldwalletextpub=xpub661MyMwAqRbcEgiqwvTMCho6G1tqAFt4f6juMptKPL3ajvebXoigJS3VwpiWocyPgn54aAqfWpeMgTsHB8xKZDyJJchMUtNzcKp2wENabkb --dbhost=localhost --dbport=3306 --dbname=stakepool --dbuser=stakepool --dbpassword=excc --exccdhost=0.0.0.0 --exccdcert=rpc.cert --exccduser=user --exccdpassword=pass --wallethost=0.0.0.0 --walletcert=rpc.cert --walletuser=user --walletpassword=user --rpclisten=0.0.0.0:9110 --appdata=/.stakepoold/
+    volumes:
+      - ./.dockerfiles/.exccwallet/:/.exccwallet
+    command: stakepoold --coldwalletextpub=xpub661MyMwAqRbcEgiqwvTMCho6G1tqAFt4f6juMptKPL3ajvebXoigJS3VwpiWocyPgn54aAqfWpeMgTsHB8xKZDyJJchMUtNzcKp2wENabkb --dbhost=localhost --dbport=3306 --dbname=stakepool --dbuser=stakepool --dbpassword=excc --exccdhost=0.0.0.0 --exccdcert=../.exccwallet/rpc.cert --exccduser=user --exccdpassword=pass --wallethost=0.0.0.0 --walletcert=../.exccwallet/rpc.cert --walletuser=user --walletpassword=user --rpclisten=0.0.0.0:9110 --appdata=/.stakepoold/
 
 networks:
   stakepool:

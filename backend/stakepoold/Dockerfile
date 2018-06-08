@@ -8,10 +8,6 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && \
     apt-get install -qy rsync
 
-RUN mkdir -p /.stakepoold/
-COPY .dockerfiles/rpc.cert /.stakepoold/rpc.cert
-COPY .dockerfiles/rpc.cert /.stakepoold/rpc.key
-
 #Get deps
 ENV DEP_TAG v0.4.1
 
