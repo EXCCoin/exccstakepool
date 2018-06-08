@@ -16,10 +16,6 @@ RUN apt-get update && \
 RUN mkdir /release && \
     chown $USER /release
 
-# switch user
-USER $USER
-ENV HOME /home/$USER
-
 #Get deps
 ENV DEP_TAG v0.4.1
 
@@ -27,6 +23,10 @@ RUN go get -v github.com/golang/dep && \
     cd /go/src/github.com/golang/dep && \
     git checkout $DEP_TAG && \
     go install ./...
+
+COPY exccd-rpc.cert /.exccd/rpc.cert
+RUN mkdir -p /.stakepoold/
+COPY exccd-rpc.cert /.stakepoold/rpc.cert
 
 #Get exccstakepool
 RUN go get -v github.com/EXCCoin/exccstakepool && \
