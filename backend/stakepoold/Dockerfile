@@ -29,10 +29,7 @@ RUN go get -v github.com/golang/dep && \
     go install ./...
 
 #Get exccstakepool
-ENV BRANCH master
-
 RUN go get -v github.com/EXCCoin/exccstakepool && \
-    git checkout $BRANCH && \
-    cd /go/src/github.com/EXCCoin/exccstakepool/backend/stakepoold && \
+    cd /go/src/github.com/EXCCoin/exccstakepool/ && \
     dep ensure && \
-    go install
+    go install ./...
