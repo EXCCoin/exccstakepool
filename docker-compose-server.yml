@@ -1,16 +1,32 @@
 version: "3.3"
 
 services:
+  node:
+    image: exccco/exchangecoin_node:latest
+    ports:
+     - "5666:9666"
+     - "5109:9109"
+    networks:
+      - server
+    working_dir: /go/bin
+    command: exccd --generate --miningaddr 22u4E52pCXS6fmQpdoukwXJu8ptod1kWxa5n -u rpcuser -P rpcpass --rpclisten=0.0.0.0:9109
+  wallet:
+    image: exccco/exchangecoin_wallet:latest
+    ports:
+     - "5111:9111"
+    networks:
+      - server
+    working_dir: /go/bin
+    command: exccwallet --noinitialload --rpclisten=0.0.0.0:9111
   stakepoold:
-#    image: exccco/exchangecoin_stakepoold:latest
-    build: .
+    image: exccco/exchangecoin_stakepoold:latest
     ports:
      - "5110:9110"
     networks:
-      - stakepool
+      - server
     working_dir: /go/bin
     command: stakepoold --coldwalletextpub=xpub661MyMwAqRbcEgiqwvTMCho6G1tqAFt4f6juMptKPL3ajvebXoigJS3VwpiWocyPgn54aAqfWpeMgTsHB8xKZDyJJchMUtNzcKp2wENabkb --dbhost=localhost --dbport=3306 --dbname=stakepool --dbuser=stakepool --dbpassword=excc --exccdhost=127.0.0.1 --exccdcert=../.exccd/rpc.cert --exccduser=user --exccdpassword=pass --wallethost=127.0.0.1 --walletcert=../.exccwallet/rpc.cert --walletuser=user --walletpassword=pass --rpclisten=0.0.0.0
 
 networks:
-  stakepool:
+  server:
     driver: bridge

@@ -1,7 +1,7 @@
 FROM golang:1.10
 
 ENV TERM linux
-ENV USER node
+ENV USER stakepoold
 
 # create user
 RUN adduser --disabled-password --gecos ''  $USER

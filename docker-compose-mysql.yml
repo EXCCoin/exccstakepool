@@ -1,0 +1,11 @@
+version: "3.3"
+
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: exccd
+      MYSQL_USER: excc
+      MYSQL_PASSWORD: excc
