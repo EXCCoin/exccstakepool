@@ -25,8 +25,12 @@ services:
     volumes:
       - excc-data:/.excc   
     depends_on:
-      - "node"     
-    command: exccwallet -u rpcuser -P rpcpass --noinitialload --grpclisten=0.0.0.0:9111 --rpclisten=0.0.0.0:9110 --appdata=/.excc/exccwallet/ --stakepoolcoldextkey=xpub6CbrWWZEcp8ioKMeje6tJoBScCMNqj2EbZemWxLF26Jiz8PQAyntBguTYDE834mPrcQJYyPxLEdzMfqSN3hbW3Hs4M9y99mZPTjKACpDsQz:10000
+      - "node"
+    command:
+      - /bin/sh
+      - -c
+      - |
+        exccwallet -u rpcuser -P rpcpass --grpclisten=0.0.0.0:9111 --rpclisten=0.0.0.0:9110 --appdata=/.excc/exccwallet/ --pass=excc --rpcconnect=10.5.0.2 --rpckey=/.excc/exccwallet/rpc.key
   stakepoold:
     image: exccco/exchangecoin_stakepoold:latest
     ports:
