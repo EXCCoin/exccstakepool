@@ -10,7 +10,9 @@ services:
       serv:
         ipv4_address: 10.5.0.2
     working_dir: /go/bin
-    command: exccd --generate --miningaddr 22u4E52pCXS6fmQpdoukwXJu8ptod1kWxa5n -u rpcuser -P rpcpass --rpclisten=0.0.0.0:9109
+    command: exccd --generate --miningaddr 22u4E52pCXS6fmQpdoukwXJu8ptod1kWxa5n -u rpcuser -P rpcpass --rpclisten=0.0.0.0:9109 --appdata=/.excc/exccd/
+    volumes:
+      - excc-data:/.excc 
   wallet:
     image: exccco/exchangecoin_wallet:latest
     ports:
@@ -21,8 +23,10 @@ services:
         ipv4_address: 10.5.0.3
     working_dir: /go/bin
     volumes:
-      - ./tmp/.exccwallet/:/.exccwallet
-    command: exccwallet -u rpcuser -P rpcpass --grpclisten=0.0.0.0:9111 --rpclisten=0.0.0.0:9110 --appdata=/.exccwallet/ --stakepoolcoldextkey=xpub6CbrWWZEcp8ioKMeje6tJoBScCMNqj2EbZemWxLF26Jiz8PQAyntBguTYDE834mPrcQJYyPxLEdzMfqSN3hbW3Hs4M9y99mZPTjKACpDsQz:10000
+      - excc-data:/.excc   
+    depends_on:
+      - "node"     
+    command: exccwallet -u rpcuser -P rpcpass --noinitialload --grpclisten=0.0.0.0:9111 --rpclisten=0.0.0.0:9110 --appdata=/.excc/exccwallet/ --stakepoolcoldextkey=xpub6CbrWWZEcp8ioKMeje6tJoBScCMNqj2EbZemWxLF26Jiz8PQAyntBguTYDE834mPrcQJYyPxLEdzMfqSN3hbW3Hs4M9y99mZPTjKACpDsQz:10000
   stakepoold:
     image: exccco/exchangecoin_stakepoold:latest
     ports:
@@ -32,8 +36,10 @@ services:
         ipv4_address: 10.5.0.4
     working_dir: /go/bin
     volumes:
-      - ./tmp/.exccwallet/:/.exccwallet
-    command: stakepoold --coldwalletextpub=xpub6CbrWWZEcp8ioKMeje6tJoBScCMNqj2EbZemWxLF26Jiz8PQAyntBguTYDE834mPrcQJYyPxLEdzMfqSN3hbW3Hs4M9y99mZPTjKACpDsQz --dbhost=localhost --dbport=3306 --dbname=stakepool --dbuser=stakepool --dbpassword=excc --exccdhost=10.5.0.2 --exccdcert=rpc.cert --exccduser=rpcuser --exccdpassword=rpcpass --wallethost=10.5.0.3 --walletcert=rpc.cert --walletuser=user --walletpassword=user --rpclisten=0.0.0.0:9110 --appdata=/.stakepoold/
+      - excc-data:/.excc     
+    command: stakepoold --coldwalletextpub=xpub6CbrWWZEcp8ioKMeje6tJoBScCMNqj2EbZemWxLF26Jiz8PQAyntBguTYDE834mPrcQJYyPxLEdzMfqSN3hbW3Hs4M9y99mZPTjKACpDsQz --dbhost=localhost --dbport=3306 --dbname=stakepool --dbuser=stakepool --dbpassword=excc --exccdhost=10.5.0.2 --exccdcert=../exccd/rpc.cert --exccduser=rpcuser --exccdpassword=rpcpass --wallethost=10.5.0.3 --walletcert=../exccwallet/rpc.cert --walletuser=rpcuser --walletpassword=rpcpass --rpclisten=0.0.0.0:9110 --appdata=/.excc/stakepoold/
+    depends_on:
+      - "wallet"   
 
 networks:
   serv:
@@ -41,3 +47,7 @@ networks:
     ipam:
       config:
         - subnet: 10.5.0.0/24
+
+volumes:
+  excc-data:
+    driver: "local"
