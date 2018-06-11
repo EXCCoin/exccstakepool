@@ -1,0 +1,23 @@
+version: "3.3"
+
+services:
+  exccdb:
+    image: mysql/mysql-server
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: stakepool
+      MYSQL_USER: stakepool
+      MYSQL_PASSWORD: stakepool
+    networks:
+      db:
+        ipv4_address: 10.6.0.6 
+    ports:
+     - "3306:3306"
+  
+networks:
+  db:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.6.0.0/24
