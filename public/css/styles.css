@@ -130,14 +130,14 @@ li {
 }
 
 a {
-    color: #88A6FC;
+    color: #5956FC;
     font-size: 1.73rem
 }
 
 a:hover,
 a:focus,
 a:active {
-    color: #88A6FC
+    color: #5956FC;
 }
 
 .row-button {
@@ -145,11 +145,11 @@ a:active {
 }
 
 .btn-primary {
-    background: #2972ff;
-    background: -webkit-linear-gradient(#699bff, #2972ff);
-    background: -o-linear-gradient(#699bff, #2972ff);
-    background: -moz-linear-gradient(#699bff, #2972ff);
-    background: linear-gradient(#699bff, #2972ff);
+    background: #FA5BAA;
+    background: -webkit-linear-gradient(#FA78AF, #FA5BAA);
+    background: -o-linear-gradient(#FA78AF, #FA5BAA);
+    background: -moz-linear-gradient(#FA78AF, #FA5BAA);
+    background: linear-gradient(#FA78AF, #FA5BAA);
     padding: 16px 28px;
     font-size: 1.73rem;
     border: 0
@@ -182,7 +182,7 @@ a:active {
 .form-control {
     height: 40px;
     font-size: 1.73rem;
-    color: #2970ff;
+    color: #FA5BAA;
     border: none;
     font-weight: bold;
     box-shadow: none !important;
@@ -193,7 +193,7 @@ a:active {
 }
 
 .form-control:focus {
-    border: 2px solid #2970ff
+    border: 2px solid #FA5BAA
 }
 
 ::-webkit-input-placeholder {
@@ -628,4 +628,8 @@ th {
 
 .control-label {
     color: #596d82
+}
+
+hr {
+    border-top: 1px solid lightgray;
 }
