@@ -34,9 +34,9 @@ const (
 	defaultDBPort           = "3306"
 	defaultDBUser           = "stakepool"
 	defaultListen           = ":8000"
-	defaultPoolEmail        = "admin@example.com"
+	defaultPoolEmail        = "help@excc.co"
 	defaultPoolFees         = 7.5
-	defaultPoolLink         = "https://forum.excc.co/threads/rfp-6-setup-and-operate-10-stake-pools.1361/"
+	defaultPoolLink         = "https://support.excc.co/"
 	defaultPublicPath       = "public"
 	defaultTemplatePath     = "views"
 	defaultRecaptchaSecret  = "6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe"
