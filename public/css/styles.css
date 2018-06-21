@@ -561,7 +561,11 @@ text {
         margin-top: 10px;
         border: none;
         border-radius: 0;
-        box-shadow: none
+        box-shadow: none;
+        background-color: #fff !important;
+    }
+    .navbar-toggle .icon-bar{
+        background-color: #5956FC !important;
     }
     .form-control {
         width: 100%
