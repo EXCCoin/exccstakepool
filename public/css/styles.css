@@ -21,12 +21,12 @@ html {
 }
 
 body {
-    background-color: #CCCCCC;
+    background-color: #fff;
     font-family: 'Source Sans Pro', sans-serif
 }
 
 .container {
-    background: #132F4B;
+    background: #f3f5f6;
     min-height: 100%;
     position: relative;
     padding: 0;
@@ -52,7 +52,7 @@ svg:not(:root) {
 }
 
 .navbar-default {
-    background-color: #0C1E3E;
+    background-color: #fff;
     border: none;
     border-radius: 0;
     margin: auto;
@@ -61,7 +61,7 @@ svg:not(:root) {
 }
 
 .navbar-default .navbar-nav li>a {
-    color: #fff;
+    color: #596d82;
     font-size: 2.0rem;
     line-height: 63px;
     padding: 10px 27px
@@ -74,11 +74,11 @@ svg:not(:root) {
 .navbar-default .navbar-nav li>a:hover,
 .navbar-default .navbar-nav li>a:focus,
 .navbar-default .navbar-nav li>a:active {
-    color: #2ed7a2
+    color: #5956FC
 }
 
 #user-name {
-    color: #2ed8a3
+    color: #5956FC
 }
 
 .navbar-right li>a:last-child {
@@ -97,20 +97,20 @@ svg:not(:root) {
 
 h1 {
     margin-top: 0;
-    color: #fff;
+    color: #596d82;
     font-size: 3.4rem;
     font-weight: 600
 }
 
 h2 {
     margin-top: 0;
-    color: #fff;
+    color: #596d82;
     font-size: 2.8rem;
     font-weight: 300
 }
 
 p {
-    color: #fff;
+    color: #596d82;
     font-size: 1.73rem
 }
 
@@ -119,7 +119,7 @@ ul {
 }
 
 li {
-    color: #fff;
+    color: #596d82;
     list-style: none;
     font-size: 1.73rem
 }
@@ -130,14 +130,14 @@ li {
 }
 
 a {
-    color: #69d5f7;
+    color: #5956FC;
     font-size: 1.73rem
 }
 
 a:hover,
 a:focus,
 a:active {
-    color: #69d5f7
+    color: #5956FC;
 }
 
 .row-button {
@@ -145,18 +145,18 @@ a:active {
 }
 
 .btn-primary {
-    background: #2972ff;
-    background: -webkit-linear-gradient(#699bff, #2972ff);
-    background: -o-linear-gradient(#699bff, #2972ff);
-    background: -moz-linear-gradient(#699bff, #2972ff);
-    background: linear-gradient(#699bff, #2972ff);
+    background: #FA5BAA;
+    background: -webkit-linear-gradient(#FA78AF, #FA5BAA);
+    background: -o-linear-gradient(#FA78AF, #FA5BAA);
+    background: -moz-linear-gradient(#FA78AF, #FA5BAA);
+    background: linear-gradient(#FA78AF, #FA5BAA);
     padding: 16px 28px;
     font-size: 1.73rem;
     border: 0
 }
 
 .btn-primary a {
-    color: #fff;
+    color: #596d82;
     font-size: 1.73rem;
     text-decoration: none
 }
@@ -175,14 +175,14 @@ a:active {
 
 .form-horizontal .control-label {
     padding-top: 13px;
-    color: #fff;
+    color: #596d82;
     font-size: 1.73rem
 }
 
 .form-control {
     height: 40px;
     font-size: 1.73rem;
-    color: #2970ff;
+    color: #FA5BAA;
     border: none;
     font-weight: bold;
     box-shadow: none !important;
@@ -193,7 +193,7 @@ a:active {
 }
 
 .form-control:focus {
-    border: 2px solid #2970ff
+    border: 2px solid #FA5BAA
 }
 
 ::-webkit-input-placeholder {
@@ -235,7 +235,7 @@ a:active {
     text-align: left;
     float: left;
     padding: 9px 0 0 0;
-    color: #fff;
+    color: #596d82;
     font-size: 1.8rem
 }
 
@@ -267,7 +267,7 @@ a:active {
 
 .table>thead>tr>th,
 .table>tbody>tr>td {
-    color: #fff
+    color: #596d82
 }
 
 .table>thead>tr>th {
@@ -357,7 +357,7 @@ a:active {
 }
 
 footer {
-    background-color: #0C1E3E;
+    background-color: #fff;
     position: absolute;
     bottom: 0;
     width: 100%;
@@ -369,7 +369,7 @@ footer p {
 }
 
 .nvd3 text {
-    fill: #fff;
+    fill: #596d82;
     font-family: "Source Sans Pro", sans-serif !important
 }
 
@@ -395,7 +395,7 @@ text {
 
 .legend-box label {
     font-size: 12px;
-    color: #fff;
+    color: #596d82;
     text-align: right;
     width: 200px
 }
@@ -540,7 +540,7 @@ text {
         padding: 5px 0px
     }
     .navbar-default .navbar-nav li>a {
-        color: #fff;
+        color: #596d82;
         font-size: 2.0rem;
         line-height: 35px;
         padding: 0 13px
@@ -561,7 +561,11 @@ text {
         margin-top: 10px;
         border: none;
         border-radius: 0;
-        box-shadow: none
+        box-shadow: none;
+        background-color: #fff !important;
+    }
+    .navbar-toggle .icon-bar{
+        background-color: #5956FC !important;
     }
     .form-control {
         width: 100%
@@ -619,13 +623,17 @@ text {
 
 .panel-control .panel-heading {
     background: transparent;
-    color: #FFFFFF
+    color: #596d82
 }
 
 th {
-    color: #FFFFFF
+    color: #596d82
 }
 
 .control-label {
-    color: #FFFFFF
+    color: #596d82
+}
+
+hr {
+    border-top: 1px solid lightgray;
 }
