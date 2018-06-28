@@ -36,7 +36,7 @@
     "txscript",
     "wire"
   ]
-  revision = "c579fd1a86a5546a063ca3c357d5a006d4711dad"
+  revision = "52bc0d00e74282341e04f6898c893290a220de66"
 
 [[projects]]
   branch = "master"
@@ -50,7 +50,7 @@
     "wallet/udb",
     "walletdb"
   ]
-  revision = "d644724eb857f401b8f5b28939f3a86e7c0b943c"
+  revision = "5a77b43dad6a7113ec3f44f34e8f6105c2a62114"
 
 [[projects]]
   branch = "master"
