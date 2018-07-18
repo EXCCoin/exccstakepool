@@ -36,7 +36,7 @@
     "txscript",
     "wire"
   ]
-  revision = "52bc0d00e74282341e04f6898c893290a220de66"
+  revision = "be9cd291089a886984b7d562ee5e17cfafda4224"
 
 [[projects]]
   branch = "master"
@@ -50,7 +50,7 @@
     "wallet/udb",
     "walletdb"
   ]
-  revision = "5a77b43dad6a7113ec3f44f34e8f6105c2a62114"
+  revision = "81387fdcb597c3c2460578d121a320d2626a6e6a"
 
 [[projects]]
   branch = "master"
@@ -104,16 +104,16 @@
   version = "v3.2.0"
 
 [[projects]]
+  branch = "master"
   name = "github.com/go-gorp/gorp"
   packages = ["."]
-  revision = "6032c66e0f5f155fd56216ed14cbbdd991034605"
-  version = "v2.1"
+  revision = "a8a0855190d9f7d95b25bd7497868edf048ea3fe"
 
 [[projects]]
+  branch = "master"
   name = "github.com/go-sql-driver/mysql"
   packages = ["."]
-  revision = "d523deb1b23d913de5bdada721a6071e71283618"
-  version = "v1.4.0"
+  revision = "749ddf1598b47e3cd909414bda735fe790ef3d30"
 
 [[projects]]
   branch = "master"
