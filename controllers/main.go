@@ -40,11 +40,12 @@ var (
 	// ticket/fee address indexes above 10000.
 	MaxUsers            = 10000
 	signupEmailSubject  = "Stake pool email verification"
-	signupEmailTemplate = "A request for an account for __URL__\r\n" +
-		"was made from __REMOTEIP__ for this email address.\r\n\n" +
-		"If you made this request, follow the link below:\r\n\n" +
-		"__URL__/emailverify?t=__TOKEN__\r\n\n" +
-		"to verify your email address and finalize registration.\r\n\n"
+	signupEmailTemplate = "A request for an account for __URL__<br />" +
+		"was made from __REMOTEIP__ for this email address.<br /><br />" +
+		"If you made this request, follow the link below:<br /><br />" +
+		"<a href=\"__URL__/emailverify?t=__TOKEN__\" />Verify your email</a><br /><br />" +
+		"to verify your email address and finalize registration.<br /><br />" +
+		"EXCCoin Team<br />"
 	StakepooldUpdateKindAll     = "ALL"
 	StakepooldUpdateKindUsers   = "USERS"
 	StakepooldUpdateKindTickets = "TICKETS"
@@ -503,6 +504,7 @@ func (controller *MainController) SendMail(emailaddress string, subject string, 
 	msg := []byte("To: " + emailaddress + "\r\n" +
 		"From: " + controller.smtpFrom + "\r\n" +
 		"Subject: " + subject + "\r\n" +
+		"MIME-version: 1.0;\nContent-Type: text/html; charset=\"UTF-8\";\n\n" +
 		"\r\n" +
 		body + "\r\n")
 
