@@ -7,9 +7,9 @@ import (
 )
 
 func TestGetNetworkName(t *testing.T) {
-	// First test that "testnet2" is translated to "testnet"
+	// First test that "testnet" is translated to "testnet"
 	mc := MainController{
-		params: &chaincfg.TestNet2Params,
+		params: &chaincfg.TestNetParams,
 	}
 
 	netName := mc.getNetworkName()
