@@ -60,7 +60,7 @@ func TestCalculateFeeAddresses(t *testing.T) {
 
 	// wrong network
 	expectedErr := fmt.Errorf("extended public key is for wrong network")
-	addrs, err = calculateFeeAddresses(xpubStr, &chaincfg.TestNet2Params)
+	addrs, err = calculateFeeAddresses(xpubStr, &chaincfg.TestNetParams)
 	if err == nil {
 		t.Error("calculateFeeAddresses did not error with wrong network params")
 	}
