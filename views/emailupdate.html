@@ -1,11 +1,11 @@
 {{define "emailupdate"}}
 <div class="wrapper">
   <div class="row main-row">
-   <div class="col-xs-15 col-md-8 col-lg-8 notication-col center-block">
+   <div class="col-xs-15 col-md-8 col-lg-8 notication-col mx-auto">
 	{{range .FlashError}}<div class="well well-notification  orange-notification">{{.}}</div>{{end}}
 	{{range .FlashSuccess}}<div class="well well-notification green-notification">{{.}}</div>{{end}}
     </div>
-    <div class="col-sm-12 col-md-10 col-lg-6 center-block">
+    <div class="col-sm-12 col-md-10 col-lg-6 mx-auto">
 	<h1>Email Update</h1>
 	{{if .FlashSuccess}}
 	<p><span style="font-size: larger;">You may now <a href="/signin">sign in</a> with your new email address.</span></p>

@@ -1,74 +1,78 @@
 {{define "admin/status"}}
-<div class="wrapper">
- <div class="row">
-
-  <div class="col-xs-15 col-md-8 col-lg-8 notication-col center-block">
-    {{if .Error}}<div class="well well-notification  orange-notification">{{.Error}}</div>{{end}}
-    {{range .Flash}}<div class="well well-notification  orange-notification">{{.}}</div>{{end}}
-    {{range .FlashWarn}}<div class="well well-notification  orange-notification">{{.}}</div>{{end}}
-  </div>
- 
-  <div class="col-sm-15 col-md-10 text-left center-block">
-
-	<div class="panel panel-default panel-control">
-		<div class="panel-heading">
-			<h4 class="panel-title">Status</h4>
-		</div>
-		<div class="panel-body">
-			{{if .StakepooldInfo}}
-			<table id="stakepooldinfo" class="table table-condensed datatablesort responsive">
-				<thead>
-					<tr>
-						<th>Stakepoold Number</th>
-						<th>GRPC Connection Status</th>
-					</tr>
-				</thead>
-				<tbody>
-				{{ range $i, $data := .StakepooldInfo }}
-					<tr>
-						<td>{{$i}}</td>
-						<td>{{ $data.Status }}</td>
-					</tr>
-				{{end}}
-				</tbody>
-			</table>
-			{{end}}
-			{{if not .WalletInfo}}
-			<p><span style="font-size: larger;"><b>Error receiving walletinfo</b></span></p>
-			{{end}}
-			{{if .WalletInfo}}
-			<table id="walletinfo" class="table table-condensed datatablesort responsive">
-				<thead>
-					<tr>
-						<th>Wallet Number</th>
-						<th>Connected</th>
-						<th>DaemonConnected</th>
-						<th>EnableVoting</th>
-					</tr>
-				</thead>
-				<tbody>
-				{{ range $i, $data := .WalletInfo }}
-					<tr>
-						{{ if $data.Connected }}
-						<td>{{$i}}</td>
-						<td>{{ $data.Connected }}</td>
-						<td>{{ $data.DaemonConnected }}</td>
-						<td>{{ $data.EnableVoting }}</td> 
-						{{else}}
-						<td>{{$i}}</td>
-						<td>{{ $data.Connected }}</td>
-						<td></td>
-						<td></td>
-						{{end}}
-					</tr>
-				{{end}}
-				</tbody>
-			</table>
-			{{end}}
-			<p>RPC Status: {{ .RPCStatus }}
-		</div><!-- panel-body -->
-	</div><!-- panel-default -->
-  </div><!-- center-block -->
-</div><!-- row -->
-</div><!-- wrapper -->
+<div class="uk-container uk-margin-large-top">
+    {{if .Error}}
+    <div class="uk-alert-primary" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{.Error}}</p>
+    </div>
+    {{end}}
+    {{range .Flash}}
+    <div class="uk-alert-primary" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{.}}</p>
+    </div>
+    {{end}}
+    {{range .FlashWarn}}
+    <div class="uk-alert-primary" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{.}}</p>
+    </div>
+    {{end}}
+    <div class="uk-flex-center" uk-grid>
+        <div class="uk-width-1-2@m">
+            <h6>Status</h6>
+            {{if .StakepooldInfo}}
+            <table id="stakepooldinfo" class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Stakepoold Number</th>
+                        <th>GRPC Connection Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range $i, $data := .StakepooldInfo }}
+                    <tr>
+                        <td>{{$i}}</td>
+                        <td>{{ $data.Status }}</td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+            {{end}}
+            {{if not .WalletInfo}}
+            <p><b>Error receiving walletinfo</b></p>
+            {{end}}
+            {{if .WalletInfo}}
+            <table id="walletinfo" class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Wallet Number</th>
+                        <th>Connected</th>
+                        <th>DaemonConnected</th>
+                        <th>EnableVoting</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ range $i, $data := .WalletInfo }}
+                    <tr>
+                        {{ if $data.Connected }}
+                        <td>{{$i}}</td>
+                        <td>{{ $data.Connected }}</td>
+                        <td>{{ $data.DaemonConnected }}</td>
+                        <td>{{ $data.EnableVoting }}</td>
+                        {{else}}
+                        <td>{{$i}}</td>
+                        <td>{{ $data.Connected }}</td>
+                        <td></td>
+                        <td></td>
+                        {{end}}
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+            {{end}}
+            <p>RPC Status: {{ .RPCStatus }}
+        </div>
+    </div>
+</div>
 {{end}}

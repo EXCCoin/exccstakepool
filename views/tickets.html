@@ -1,75 +1,56 @@
 {{define "tickets"}}
-<div class="wrapper">
- <div class="row">
-
-  <div class="col-xs-15 col-md-8 col-lg-8 notication-col center-block">
-    {{if .Error}}<div class="well well-notification  orange-notification">{{.Error}}</div>{{end}}
-    {{range .Flash}}<div class="well well-notification  orange-notification">{{.}}</div>{{end}}
-    {{range .FlashWarn}}<div class="well well-notification  orange-notification">{{.}}</div>{{end}}
-  </div>
- 
-  <div class="col-sm-15 col-md-10 text-left center-block">
-
-<div class="panel-group" id="accordion">
-
-<!-- TICKET INFORMATION BEGIN HERE -->
-  <div class="panel panel-default panel-control">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-info">
-        Ticket Information</a>
-      </h4>
+<div class="uk-container page uk-margin-large-top">
+    {{if .Error}}
+    <div class="uk-alert-primary" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{.Error}}</p>
     </div>
-    <div id="collapse-info" class="panel-collapse collapse {{if not .TicketsLive}}in{{end}}">
-      <div class="panel-body">
-	 <h1>P2SH Address:</h1><pre>{{ .User.MultiSigAddress }}</pre>
-        <hr />
-        <h1>Redeem Script:</h1><pre>{{ .User.MultiSigScript }}</pre>
-      </div>
+    {{end}}
+    {{range .Flash}}
+    <div class="uk-alert-primary" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{.}}</p>
     </div>
-  </div>
-
-<!-- TICKET INSTRUCTIONS BEGIN HERE -->
-  <div class="panel panel-default panel-control">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-instr">
-        Ticket Instructions</a>
-      </h4>
+    {{end}}
+    {{range .FlashWarn}}
+    <div class="uk-alert-primary" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{.}}</p>
     </div>
-    <div id="collapse-instr" class="panel-collapse collapse {{if not .TicketsLive}}in{{end}}">
-      <div class="panel-body">
-			<p><strong><u>Step 1</u></strong></p>
-			<p><strong>The official EXCCoin GUI wallet
-        <a href="https://excc.co/#useful_section">Exilibrium</a>
-        is the recommended way to use stake pools.  All you need to get started
-        is to copy and paste the API Token from the <a href="/settings">Settings Page</a>.  A more
-        comprehensive guide is available for
-        <a href="https://support.excc.co/hc/en-us/articles/360004872972">Exilibrium</a>.
-				There is also a more general overview of the staking process available
-				<a href="https://exchangecoin.zendesk.com/hc/en-us/articles/360004934011" target="_blank">here</a>.</strong></p>
-			<p><strong>It is recommended to use the latest versions of the EXCCoin software before starting.&nbsp;</strong>
-			<a href="https://excc.co/#useful_section/" target="_blank"><span aria-label="EXCCoin Downloads Page"> &#8675; EXCCoin Downloads Page</span></a>
-			The <a href="https://exchangecoin.zendesk.com/hc/en-us/articles/360004934571">exccwallet instructions</a>
-      are the most helpful if you wish to continue on the command-line path.</p>
-			<p><strong><u>Step 2</u></strong></p>
-			<p>Your multisignature script for delegating votes has been generated.
-			Please first import it locally into your wallet using <b>exccctl</b> for
-			safe keeping, so you can recover your funds and vote in the unlikely
-			event of a pool failure:</p>
-
-			<p>exccctl --wallet importscript "script"</p>
-			<p>For example:</p>
-			<div class="cmd"><pre>$ exccctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet importscript {{ .User.MultiSigScript }}</pre></div>
-
-			<p>After successfully importing the script into your wallet, you may
-				purchase tickets with voting rights delegated to the pool in either of
-				two ways:</p>
-
-			<p><strong><u>Step 3</u></strong></p>
-			<p><strong>Option A - exccwallet - Automatic purchasing</strong></p>
-			<p>Stop exccwallet if it is currently running and add the following to <strong>exccwallet.conf</strong>:</p>
-<pre>
+    {{end}}
+    <ul uk-accordion="collapsible: false">
+        <!-- TICKET INFORMATION BEGIN HERE -->
+        <li class="{{if not .TicketsLive}}uk-open{{end}}">
+            <a class="uk-accordion-title" href="#">Ticket Information</a>
+            <div id="collapse-info" class="uk-accordion-content">
+                <h6>P2SH Address:</h6>
+                <pre>{{ .User.MultiSigAddress }}</pre>
+                <hr />
+                <h6>Redeem Script:</h6>
+                <pre>{{ .User.MultiSigScript }}</pre>
+            </div>
+        </li>
+        <!-- TICKET INSTRUCTIONS BEGIN HERE -->
+        <li class="{{if not .TicketsLive}}uk-open{{end}}">
+            <a class="uk-accordion-title" href="#">Ticket Instructions</a>
+            <div id="collapse-instr" class="uk-accordion-content">
+                <p><u>Step 1</u></p>
+                <p>The official EXCCoin GUI wallet <a href="https://excc.co/#useful_section">Exilibrium</a> is the recommended way to use stake pools.  All you need to get started
+                    is to copy and paste the API Token from the <a href="/settings">Settings Page</a>.  A more comprehensive guide is available for <a href="https://support.excc.co/hc/en-us/articles/360004872972">Exilibrium</a>. There is also a more general overview of the staking process available <a href="https://exchangecoin.zendesk.com/hc/en-us/articles/360004934011" target="_blank">here</a>.
+                </p>
+                <p>It is recommended to use the latest versions of the EXCCoin software before starting.&nbsp; <a href="https://excc.co/#useful_section/" target="_blank"><span aria-label="EXCCoin Downloads Page"> &#8675; EXCCoin Downloads Page</span></a> The <a href="https://exchangecoin.zendesk.com/hc/en-us/articles/360004934571">exccwallet instructions</a>
+                    are the most helpful if you wish to continue on the command-line path.
+                </p>
+                <p><u>Step 2</u></p>
+                <p>Your multisignature script for delegating votes has been generated. Please first import it locally into your wallet using <b>exccctl</b> for safe keeping, so you can recover your funds and vote in the unlikely event of a pool failure:</p>
+                <code>exccctl --wallet importscript "script"</code>
+                <p>For example:</p>
+                <pre>$ exccctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet importscript {{ .User.MultiSigScript }}</pre>
+                <p>After successfully importing the script into your wallet, you may purchase tickets with voting rights delegated to the pool in either of two ways:</p>
+                <p><u>Step 3</u></p>
+                <p><strong>Option A - exccwallet - Automatic purchasing</strong></p>
+                <p>Stop exccwallet if it is currently running and add the following to <strong>exccwallet.conf</strong>:</p>
+                <pre>
 [Application Options]
 enableticketbuyer=true
 pooladdress={{ .User.UserFeeAddr }}
@@ -79,250 +60,200 @@ poolfees={{ .PoolFees }}
 [Ticket Buyer Options]
 ticketbuyer.votingaddress={{ .User.MultiSigAddress }}
 ticketbuyer.maxpriceabsolute=100
-</pre>
-      <p>Unlock exccwallet and it will automatically purchase stake tickets delegated to the pool address.</p>
-
-			<p><strong>Option B - exccwallet - Manual purchasing</strong></p>
-			<p>Start a wallet with funds available and manually purchase tickets with the following command using <strong>exccctl</strong>:</p>
-			<p>exccctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "fromaccount" spendlimit minconf ticketaddress numtickets poolfeeaddress poolfeeamt</p>
-<pre>
-exccctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "default" 100 1 {{ .User.MultiSigAddress }} 1 {{ .User.UserFeeAddr }} {{ .PoolFees}}</pre>
-			<p>Will purchase a ticket delegated to the the multisig address which
-				allows either your or the pool to vote when the ticket is called. This
-				uses funds from the default account only if the current network price
-				for a ticket is less than 100.0 coins.</p>
-
-			<p><strong><u>Step 4 (Optional)</u></strong></p>
-			<p><strong>Voting</strong></p>
-			<p>If you wish to cast votes yourself, please review the guides
-			<a href="https://support.excc.co/hc/en-us/articles/360004974992">How To Vote</a>
-			and
-			<a href="https://support.excc.co/hc/en-us/articles/360004974992">Solo-Voting</a>.
-			The preferences you set on this stake pool's <a href="/voting">voting page</a>
-			only affect the stake pool's voting wallets and not your own.</p>
-      </div>
-    </div>
-  </div>
-
-<!-- BEGIN LIVE IMMATURE -->
-  <div class="panel panel-default panel-control">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-livelist">
-        Live/Immature</a>
-      </h4>
-    </div>
-    <div id="collapse-livelist" class="panel-collapse collapse {{if .TicketsLive }}in{{end}}">
-      <div class="panel-body">
-			{{if not .TicketsLive}}
-			<p><strong>No live tickets.</strong></p>
-			{{end}}
-			{{if .TicketsLive}}
-			<div class="table-responsive">
-			<table id="ticketslive" class="table table-condensed datatablesort responsive">
-			<thead>
-				<tr>
-					<th>Ticket</th>
-					<th>TicketHeight</th>
-				</tr>
-			</thead>
-			<tbody>
-			{{ range $i, $data := .TicketsLive }}<tr>
-				<td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
-				<td>{{ $data.TicketHeight }}</td>
-				</tr>{{end}}
-			</tbody>
-			<tfoot>
-				<tr>
-					<th>Ticket</th>
-					<th>TicketHeight</th>
-				</tr>
-			</tfoot>
-			</table>
-			</div>
-			{{end}}
-      </div>
-    </div>
-  </div>
-
-<!-- BEGIN VOTED TICKETS-->
-  <div class="panel panel-default panel-control">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-votedlist">
-        Voted Tickets</a>
-      </h4>
-    </div>
-    <div id="collapse-votedlist" class="panel-collapse collapse {{if .TicketsVoted}}in{{end}}">
-      <div class="panel-body">
-			<p><strong>{{.TicketsVotedCount}} total tickets voted ({{.TicketsVotedArchivedCount}} archived and not shown).</strong></p>
-			
-			{{if .TicketsVoted}}
-			<div class="table-responsive">
-			<table id="ticketsvoted" class="table table-condensed datatablesort responsive">
-			<thead>
-				<tr>
-					<th>Ticket</th>
-					<th>SpentByHeight</th>
-					<th>TicketHeight</th>
-				</tr>
-			</thead>
-			<tbody>
-			{{ range $i, $data := .TicketsVoted }}<tr>
-				<td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
-				<td><a href="https://{{$.Network}}.excc.co/tx/{{$data.SpentBy}}" target="_blank">{{$data.SpentByHeight}}</a></td>
-				<td>{{$data.TicketHeight}}</td>
-				</tr>{{end}}
-			</tbody>
-			<tfoot>
-				<tr>
-					<th>Ticket</th>
-					<th>SpentByHeight</th>
-					<th>TicketHeight</th>
-				</tr>
-			</tfoot>
-			</table>
-			</div>
-			{{end}}
-      </div>
-    </div>
-  </div>
-
-
-<!-- BEGIN MISSED TICKETS-->
-  <div class="panel panel-default panel-control">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-missedlist">
-        Missed Tickets</a>
-      </h4>
-    </div>
-    <div id="collapse-missedlist" class="panel-collapse collapse">
-      <div class="panel-body">
-			{{if not .TicketsMissed}}
-			<p><strong>No missed tickets.</strong></p>
-			{{end}}
-			{{if .TicketsMissed}}
-			<div class="well well-notification  orange-notification"><b>Caution!</b> Missed tickets can be caused by a poorly connected miner and may not be any fault of the pool.</div>
-			<div class="table-responsive">
-			<table id="ticketsmissed" class="table table-condensed datatablesort responsive">
-			<thead>
-				<tr>
-					<th>Ticket</th>
-					<th>SpentByHeight</th>
-					<th>TicketHeight</th>
-				</tr>
-			</thead>
-			<tbody>
-			{{ range $i, $data := .TicketsMissed }}<tr>
-				<td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
-				<td>{{$data.SpentByHeight}}</td>
-				<td>{{$data.TicketHeight}}</td>
-				</tr>{{end}}
-			</tbody>
-			<tfoot>
-				<tr>
-					<th>Ticket</th>
-					<th>SpentByHeight</th>
-					<th>TicketHeight</th>
-				</tr>
-			</tfoot>
-			</table>
-			</div>
-			{{end}}
-      </div>
-    </div>
-  </div>
-
-<!-- BEGIN EXPIRED TICKETS-->
-  <div class="panel panel-default panel-control">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-expiredlist">
-        Expired Tickets</a>
-      </h4>
-    </div>
-    <div id="collapse-expiredlist" class="panel-collapse collapse">
-      <div class="panel-body">
-			{{if not .TicketsExpired}}
-			<p><strong>No expired tickets.</strong></p>
-			{{end}}
-			{{if .TicketsExpired}}
-			<div class="table-responsive">
-			<table id="ticketsexpired" class="table table-condensed datatablesort responsive">
-			<thead>
-				<tr>
-					<th>Ticket</th>
-					<th>SpentByHeight</th>
-					<th>TicketHeight</th>
-				</tr>
-			</thead>
-			<tbody>
-			{{ range $i, $data := .TicketsExpired }}<tr>
-				<td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
-				<td>{{$data.SpentByHeight}}</td>
-				<td>{{$data.TicketHeight}}</td>
-				</tr>{{end}}
-			</tbody>
-			<tfoot>
-				<tr>
-					<th>Ticket</th>
-					<th>SpentByHeight</th>
-					<th>TicketHeight</th>
-				</tr>
-			</tfoot>
-			</table>
-			</div>
-			{{end}}
-      </div>
-    </div>
-  </div>
-
-<!-- BEGIN INVALID TICKETS-->
-  <div class="panel panel-default panel-control">
-    <div class="panel-heading">
-      <h4 class="panel-title">
-        <a data-toggle="collapse" data-parent="#accordion" href="#collapse-invalidlist">
-        Invalid Tickets</a>
-      </h4>
-    </div>
-    <div id="collapse-invalidlist" class="panel-collapse collapse {{if .TicketsInvalid }}in{{end}}">
-      <div class="panel-body">
-			{{if not .TicketsInvalid}}
-			<p><strong>No tickets.</strong></p>
-			{{end}}
-			{{if .TicketsInvalid}}
-			<div class="well well-notification orange-notification"><b>Alert!</b> Tickets appearing here did not pay the correct pool fee.
-			You will either need to vote these tickets yourself or contact your stake pool administrator to have them add
-			the ticket to the pool manually.</div>
-			<div class="table-responsive">
-			<table id="ticketsinvalid" class="table table-condensed">
-			<thead>
-				<tr>
-					<th>Ticket</th>
-				</tr>
-			</thead>
-			<tbody>
-			{{ range $i, $data := .TicketsInvalid }}<tr>
-				<td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
-				</tr>{{end}}
-			</tbody>
-			<tfoot>
-				<tr>
-					<th>Ticket</th>
-				</tr>
-			</tfoot>
-			</table>
-			</div>
-			{{end}}
-      </div>
-    </div>
-  </div>
-
-</div>
-
-
-</div>
-</div>
+			</pre>
+                <p>Unlock exccwallet and it will automatically purchase stake tickets delegated to the pool address.</p>
+                <p><strong>Option B - exccwallet - Manual purchasing</strong></p>
+                <p>Start a wallet with funds available and manually purchase tickets with the following command using <strong>exccctl</strong>:</p>
+                <p>exccctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "fromaccount" spendlimit minconf ticketaddress numtickets poolfeeaddress poolfeeamt</p>
+                <pre>exccctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "default" 100 1 {{ .User.MultiSigAddress }} 1 {{ .User.UserFeeAddr }} {{ .PoolFees}}</pre>
+                <p>Will purchase a ticket delegated to the the multisig address which allows either your or the pool to vote when the ticket is called. This uses funds from the default account only if the current network price for a ticket is less than 100.0 coins.</p>
+                <p><strong><u>Step 4 (Optional)</u></strong></p>
+                <p><strong>Voting</strong></p>
+                <p>If you wish to cast votes yourself, please review the guides <a href="https://support.excc.co/hc/en-us/articles/360004974992">How To Vote</a> and <a href="https://support.excc.co/hc/en-us/articles/360004974992">Solo-Voting</a>. The preferences you set on this stake pool's <a href="/voting">voting page</a> only affect the stake pool's voting wallets and not your own.</p>
+            </div>
+        </li>
+        <!-- BEGIN LIVE IMMATURE -->
+        <li class="{{if .TicketsLive}}uk-open{{end}}">
+            <a class="uk-accordion-title" href="#">Live/Immature</a>
+            <div id="collapse-livelist" class="uk-accordion-content">
+                {{if not .TicketsLive}}
+                <p>No live tickets.</p>
+                {{end}}
+                {{if .TicketsLive}}
+                <div class="uk-overflow-auto">
+                    <table id="ticketslive" class="uk-table uk-table-striped datatablesort">
+                        <thead>
+                            <tr>
+                                <th>Ticket</th>
+                                <th>TicketHeight</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{ range $i, $data := .TicketsLive }}
+                            <tr>
+                                <td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+                                <td>{{ $data.TicketHeight }}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Ticket</th>
+                                <th>TicketHeight</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                {{end}}
+            </div>
+        </li>
+        <!-- BEGIN VOTED TICKETS-->
+        <li class="{{if .TicketsVoted}}uk-open{{end}}">
+            <a class="uk-accordion-title" href="#">Voted Tickets</a>
+            <div id="collapse-votedlist" class="uk-accordion-content">
+                <p><strong>{{.TicketsVotedCount}} total tickets voted ({{.TicketsVotedArchivedCount}} archived and not shown).</strong></p>
+                {{if .TicketsVoted}}
+                <div class="uk-overflow-auto">
+                    <table id="ticketsvoted" class="uk-table uk-table-striped datatablesort">
+                        <thead>
+                            <tr>
+                                <th>Ticket</th>
+                                <th>SpentByHeight</th>
+                                <th>TicketHeight</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{ range $i, $data := .TicketsVoted }}
+                            <tr>
+                                <td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+                                <td><a href="https://{{$.Network}}.excc.co/tx/{{$data.SpentBy}}" target="_blank">{{$data.SpentByHeight}}</a></td>
+                                <td>{{$data.TicketHeight}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Ticket</th>
+                                <th>SpentByHeight</th>
+                                <th>TicketHeight</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                {{end}}
+            </div>
+        </li>
+        <!-- BEGIN MISSED TICKETS-->
+        <li>
+            <a class="uk-accordion-title" href="#">Missed Tickets</a>
+            <div id="collapse-missedlist" class="uk-accordion-content">
+                {{if not .TicketsMissed}}
+                <p><strong>No missed tickets.</strong></p>
+                {{end}}
+                {{if .TicketsMissed}}
+                <div class="uk-alert-primary" uk-alert>
+                    <a class="uk-alert-close" uk-close></a>
+                    <p><b>Caution!</b> Missed tickets can be caused by a poorly connected miner and may not be any fault of the pool.</p>
+                </div>
+                <div class="uk-overflow-auto">
+                    <table id="ticketsmissed" class="uk-table datatablesort uk-table-striped">
+                        <thead>
+                            <tr>
+                                <th>Ticket</th>
+                                <th>SpentByHeight</th>
+                                <th>TicketHeight</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{ range $i, $data := .TicketsMissed }}
+                            <tr>
+                                <td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+                                <td>{{$data.SpentByHeight}}</td>
+                                <td>{{$data.TicketHeight}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Ticket</th>
+                                <th>SpentByHeight</th>
+                                <th>TicketHeight</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                {{end}}
+            </div>
+        </li>
+        <!-- BEGIN EXPIRED TICKETS-->
+        <li>
+            <a class="uk-accordion-title" href="#">Expired Tickets</a>
+            <div id="collapse-expiredlist" class="uk-accordion-content">
+                {{if not .TicketsExpired}}
+                <p><strong>No expired tickets.</strong></p>
+                {{end}}
+                {{if .TicketsExpired}}
+                <div class="uk-overflow-auto">
+                    <table id="ticketsexpired" class="uk-table datatablesort uk-table-striped">
+                        <thead>
+                            <tr>
+                                <th>Ticket</th>
+                                <th>SpentByHeight</th>
+                                <th>TicketHeight</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{ range $i, $data := .TicketsExpired }}
+                            <tr>
+                                <td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+                                <td>{{$data.SpentByHeight}}</td>
+                                <td>{{$data.TicketHeight}}</td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Ticket</th>
+                                <th>SpentByHeight</th>
+                                <th>TicketHeight</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                {{end}}
+            </div>
+        </li>
+        <!-- BEGIN INVALID TICKETS-->
+        <li class="{{if .TicketsInvalid }}uk-open{{end}}">
+            <a class="uk-accordion-title" href="#">Invalid Tickets</a>
+            <div id="collapse-invalidlist" class="uk-accordion-content">
+                {{if not .TicketsInvalid}}
+                <p><strong>No tickets.</strong></p>
+                {{end}}
+                {{if .TicketsInvalid}}
+                <div class="uk-alert-primary" uk-alert>
+                    <a class="uk-alert-close" uk-close></a>
+                    <p><b>Alert!</b> Tickets appearing here did not pay the correct pool fee. You will either need to vote these tickets yourself or contact your stake pool administrator to have them add the ticket to the pool manually.</p>
+                </div>
+                <div class="uk-overflow-auto">
+                    <table id="ticketsinvalid" class="uk-table uk-table-striped">
+                        <thead>
+                            <tr>
+                                <th>Ticket</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{ range $i, $data := .TicketsInvalid }}
+                            <tr>
+                                <td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+                            </tr>
+                            {{end}}
+                        </tbody>
+                    </table>
+                </div>
+                {{end}}
+            </div>
+        </li>
+    </ul>
 </div>
 {{end}}

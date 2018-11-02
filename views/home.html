@@ -1,31 +1,42 @@
 {{define "home"}}
-<div class="wrapper">
-    <div class="row main-row">
- <div class="col-xs-15 col-md-8 col-lg-8 notication-col center-block">
+<div class="uk-container uk-margin-large-top">
+    <h6>ExchangeCoin StakePool</h6>
+    <div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
+        <div>
+            <div class="uk-card uk-card-body uk-card-default">
+                <h3 class="uk-card-title">General info</h3>
+                <p>
+                    A stake pool is used to delegate your voting powers to a third party (the pool). The pool <b>cannot</b> steal your funds.
+                    Participating in a stake pool is perfect for people who wish to take part in EXCCoin's proof of stake voting but can't due to:
+                </p>
+                <ul class="uk-list">
+                    <li>Not wanting to keep a constantly unlocked wallet</li>
+                    <li>Lack of a realible/low latency Internet connection</li>
+                </ul>
+                <p>The source code is available at <a href="https://github.com/EXCCoin/exccstakepool" target="_blank">GitHub.</a></p>
+            </div>
+        </div>
+        <div>
+            <div class="uk-card uk-card-body uk-card-default">
+                <h3 class="uk-card-title">Pool Information</h3>
+                <ul class="uk-list">
+                    <li>Network: {{.Network}}</li>
+                    <li>Pool Fees: {{.PoolFees}}%</li>
+                    <li>Support Email: <a href="mailto:{{.PoolEmail}}">{{.PoolEmail}}</a></li>
+                    <li>Support: <a href="{{.PoolLink}}" target="_blank">{{.PoolLink}}</a></li>
+                    <li>Discord: <a href="https://discord.gg/ksTkrY7" target="_blank">discord.gg/ksTkrY7</a></li>
+                    <li>Telegram: <a href="https://t.me/ExchangeCoinChat" target="_blank">t.me/ExchangeCoinChat</a></li>
+                </ul>
+            </div>
+        </div>
     </div>
-    <div class="col-sm-12 col-md-10 col-lg-8 center-block">
-       <h1 class="text-center">EXCCoin Stake Pool Overview</h1>
-       <p>A stake pool is used to delegate your voting powers to a third party (the pool). The pool <b>cannot</b> steal your funds.</p>
-       <p>Participating in a stake pool is perfect for people who wish to take part in EXCCoin's proof of stake voting but can't due to:</p>
-       <ul><li>Not wanting to keep a constantly unlocked wallet</li>
-       <li>Lack of a realible/low latency Internet connection</li></ul>
-       <p>The source code is available at <a href="https://github.com/EXCCoin/exccstakepool" target="_blank">GitHub.</a></p>
-       <hr>
-       <ul>
-         <li class="li-heading">Pool Information</li>
-         <li>Network: {{.Network}}</li>
-         <li>Pool Fees: {{.PoolFees}}%</li>
-         <li>Support Email: <a href="mailto:{{.PoolEmail}}">{{.PoolEmail}}</a></li>
-         <li>Support Link: <a href="{{.PoolLink}}" target="_blank">{{.PoolLink}}</a></li>
-       </ul>
-    </div>   
+</div>
+{{if not .User}}
+<div class="uk-container uk-margin-large-top">
+    <div class="uk-text-center">
+        <a href="/signup" class="uk-button uk-button-default" role="button">Sign Up</a>
     </div>
-	{{if not .User}}
-     <div class="row row-button">
-      <div class="col-sm-15 col-md-6 center-block text-center">
-        <a href="/signup" class="btn btn-primary" role="button">Sign Up</a>
-      </div>
-    </div>
-	{{end}}
 </div>
 {{end}}
+{{end}}
+
