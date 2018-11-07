@@ -1,46 +1,40 @@
 {{define "voting"}}
-<div class="wrapper">
- <div class="row">
-  <div class="col-xs-15 col-md-8 col-lg-8 notication-col center-block">
-    {{range .FlashError}}<div class="well well-notification  orange-notification">{{.}}</div>{{end}}
-    {{range .FlashSuccess}}<div class="well well-notification green-notification">{{.}}</div>{{end}}
-  </div>
- 
-  <div class="col-sm-15 col-md-10 text-left center-block">
-    <h1>Voting Preferences (v{{.VoteVersion}})</h1>
-
-    <hr />
-
-    <!-- AGENDAS -->
-    <h2>Agendas</h2>
-    <p><em>See the <a href="https://support.excc.co/hc/en-us/articles/360004974992">EXCCoin Voting Site</a> for more information.</em></p>
-    {{with .Agendas}}
-    <form method="post" class="form-horizontal">
-      {{ range $i, $data := . }}
-        <div class="form-group">
-          <label class="control-label col-sm-15" for="agenda{{$i}}">{{$data.Vote.Id}} - {{$data.Vote.Description}}</label>
-          <div class="col-sm-15">
-            <select class="form-control" name="agenda{{$i}}" id="agenda{{$i}}">
-              {{ range $j, $choicesdata := $data.Vote.Choices}}
-                <option value="{{$choicesdata.Bits}}"{{if eq $choicesdata.Bits (index $ (print "Agenda" $i "Selected"))}} selected{{end}}>{{$choicesdata.Description}}</option>
-              {{end}}
-            </select>
-          </div>
-        </div>
-      {{end}}
-    <div class="form-group">
-        <button id="updateVoting" name="updateVoting" class="btn btn-primary">Update Voting Preferences</button>
+<div class="uk-container uk-margin-large-top">
+    {{range .FlashError}}
+    <div class="uk-alert-primary" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{.}}</p>
     </div>
-    <input type="hidden" name="{{$.CsrfKey}}" value={{$.CsrfToken}}>
+    {{end}}
+    {{range .FlashSuccess}}
+    <div class="uk-alert-primary" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{.Error}}</p>
+    </div>
+    {{end}}
+    <h6>Voting Preferences (v{{.VoteVersion}})</h6>
+    <!-- AGENDAS -->
+    <h6>Agendas</h6>
+    <p>See the <a href="https://support.excc.co/hc/en-us/articles/360004974992">EXCCoin Voting Site</a> for more information.</p>
+    {{with .Agendas}}
+    <form method="post" class="uk-form-stacked">
+        {{ range $i, $data := . }}
+        <div class="uk-margin">
+            <label class="uk-form-label" for="agenda{{$i}}">{{$data.Vote.Id}} - {{$data.Vote.Description}}</label>
+            <select class="uk-select" name="agenda{{$i}}" id="agenda{{$i}}">
+            {{ range $j, $choicesdata := $data.Vote.Choices}}
+            <option value="{{$choicesdata.Bits}}"{{if eq $choicesdata.Bits (index $ (print "Agenda" $i "Selected"))}} selected{{end}}>{{$choicesdata.Description}}</option>
+            {{end}}
+            </select>
+        </div>
+        {{end}}
+        <div class="uk-margin">
+            <button id="updateVoting" name="updateVoting" class="uk-button uk-button-default">Update Voting Preferences</button>
+        </div>
+        <input type="hidden" name="{{$.CsrfKey}}" value={{$.CsrfToken}}>
     </form>
     {{else}}
-    <p><strong>There are no active agendas to vote on currently.</strong></p>
+    <p>There are no active agendas to vote on currently.</p>
     {{end}}
-
-
-  </div>
-
- </div>
 </div>
 {{end}}
-

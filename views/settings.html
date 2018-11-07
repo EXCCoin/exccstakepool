@@ -1,93 +1,70 @@
 {{define "settings"}}
-<div class="wrapper">
- <div class="row">
-  <div class="col-xs-15 col-md-8 col-lg-8 notication-col center-block">
-    {{if .SMTPDisabled }}<div class="well well-notification  orange-notification">Mail server not configured.  You will not receive an email change verification link.</div>{{end}}
-    {{range .FlashError}}<div class="well well-notification  orange-notification">{{.}}</div>{{end}}
-    {{range .FlashSuccess}}<div class="well well-notification green-notification">{{.}}</div>{{end}}
-  </div>
-
-  <div class="col-sm-15 col-md-10 text-left center-block">
-      {{if .ShowInstructions }}
-      <p><strong>To start staking, you need to submit a public key address.  This can be
-      done automatically by the GUI wallet Exilibrium (see below).
-      You may also proceed by following the command-line instructions on the
-      <a href="/address">Address Page</a>.</strong></p><br>
-      {{end}}
-        <p><strong>The official EXCCoin GUI wallet
-        <a href="https://excc.co/#useful_section">Exilibrium</a>
-        is the recommended way to use stake pools.  All you need to get started
-        is to copy and paste the API Token below when prompted.  A more
-        comprehensive guide is available for
-        <a href="https://support.excc.co/hc/en-us/articles/360004872972">Exilibrium</a>.
-        There is also a more general overview of the staking process available
-				<a href="https://exchangecoin.zendesk.com/hc/en-us/articles/360004934011" target="_blank">here</a>.</strong></p>
-  </div>
-
-  <div class="col-sm-15 col-md-10 text-left center-block">
-    <h1>Settings</h1>
- 
-	<p><strong>API Token:</strong></p>
-	<pre>{{ .APIToken }}</pre>
-<hr />
-
-	<h2>Change Email Address</h2>
-        <form method="post" class="form-horizontal">
-	 <div class="form-group">
-	  <label class="control-label col-sm-2" for="email">New Email:</label>
-	<div class="col-sm-13">
-	  <input id="email" name="email" placeholder="New Email Address" type="email" class="form-control" required>
-	</div>
-	 </div>
-	 <div class="form-group">
-	  <label class="control-label col-sm-2" for="emailpassword">Password:</label>
-	<div class="col-sm-13">
-	  <input id="emailpassword" name="password" placeholder="Password" type="password" class="form-control" required>
-	</div>
-	 </div>
-	<div class="form-group">
-         <div class="g-recaptcha pull-right" style="padding-right: 15px;" data-sitekey="{{.RecaptchaSiteKey}}" data-theme="light"></div>
-	</div>
-	<div class="form-group">
-         <button id="updateEmail" name="updateEmail" value="true" class="btn btn-primary">Change Email Address</button>
-	</div>
-	 <input type="hidden" name="{{.CsrfKey}}" value={{.CsrfToken}}>
-	</form>
-
-<hr />
-	<h2>Change Password</h2>
-       <form class="form-horizontal" method="post">
-	<div class="form-group">
-          <label for="curpassword" class="control-label col-sm-2">Current<br />Password</label>
-	<div class="col-sm-13">
-          <input id="curpassword" name="password" type="password" placeholder="Current Password" class="form-control" required>
-	</div>
+<div class="uk-container uk-margin-large-top">
+    {{if .SMTPDisabled }}
+    <div class="uk-alert-primary" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>Mail server not configured.  You will not receive an email change verification link.</p>
+    </div>
+    {{end}}
+    {{range .FlashError}}
+    <div class="uk-alert-primary" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{.}}</p>
+    </div>
+    {{end}}
+    {{range .FlashSuccess}}
+    <div class="uk-alert-primary" uk-alert>
+        <a class="uk-alert-close" uk-close></a>
+        <p>{{.}}</p>
+    </div>
+    {{end}}
+    {{if .ShowInstructions }}
+    <p>To start staking, you need to submit a public key address.  This can be done automatically by the GUI wallet Exilibrium (see below). You may also proceed by following the command-line instructions on the <a href="/address">Address Page</a>.</p>
+    {{end}}
+    <p>The official EXCCoin GUI wallet <a href="https://excc.co/#useful_section">Exilibrium</a> is the recommended way to use stake pools.  All you need to get started is to copy and paste the API Token below when prompted.  A more comprehensive guide is available for <a href="https://support.excc.co/hc/en-us/articles/360004872972">Exilibrium</a>. There is also a more general overview of the staking process available  <a href="https://exchangecoin.zendesk.com/hc/en-us/articles/360004934011" target="_blank">here</a>.</p>
+    <h6>Settings</h6>
+    <h6>API Token:</h6>
+    <code>{{ .APIToken }}</code>
+    <hr />
+    <h6>Change Email Address</h6>
+    <form method="post" class="uk-form-stacked uk-width-1-2@m">
+        <div class="uk-margin">
+            <label class="uk-form-label" for="email">New Email:</label>
+            <input id="email" name="email" placeholder="New Email Address" type="email" class="uk-input" required>
         </div>
-        <div class="form-group">
-          <label class="control-label col-sm-2" for="newpassword">New<br />Password</label>
-	<div class="col-sm-13">
-          <input id="newpassword" name="newpassword" type="password" placeholder="New Password" class="form-control" required>
-	</div>
-	</div>
-	<div class="form-group">
-          <label class="control-label col-sm-2" for="newpasswordrepeat">Repeat New Password</label>
-	<div class="col-sm-13">
-          <input id="newpasswordrepeat" name="newpasswordrepeat" type="password" placeholder="Repeat New Password" class="form-control" required>
-	</div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="emailpassword">Password:</label>
+            <input id="emailpassword" name="password" placeholder="Password" type="password" class="uk-input" required>
         </div>
-        <div class="form-group">
-          <label class="control-label" for="updatepassword"></label>
-          <button id="updatepassword" name="updatePassword" value="true" class="btn btn-primary">Update Password</button>
+        <div class="uk-margin">
+            <div class="g-recaptcha float-xs-right" data-sitekey="{{.RecaptchaSiteKey}}" data-theme="light"></div>
+        </div>
+        <div class="uk-margin">
+            <button id="updateEmail" name="updateEmail" value="true" class="uk-button uk-button-default">Change Email Address</button>
         </div>
         <input type="hidden" name="{{.CsrfKey}}" value={{.CsrfToken}}>
-       </form>
-
-
-
-
-  </div>
-
- </div>
+    </form>
+    <hr />
+    <h6>Change Password</h6>
+    <form method="post" class="uk-form-stacked uk-width-1-2@m">
+        <div class="uk-margin">
+            <label for="curpassword" class="uk-form-label">Current Password</label>
+            <input id="curpassword" name="password" type="password" placeholder="Current Password" class="uk-input" required>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="newpassword">New Password</label>
+            <input id="newpassword" name="newpassword" type="password" placeholder="New Password" class="uk-input" required>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-form-label" for="newpasswordrepeat">Repeat New Password</label>
+            <input id="newpasswordrepeat" name="newpasswordrepeat" type="password" placeholder="Repeat New Password" class="uk-input" required>
+        </div>
+        <div class="uk-margin">
+            <label class="uk-input-label" for="updatepassword"></label>
+            <button id="updatepassword" name="updatePassword" value="true" class="uk-button uk-button-default">Update Password</button>
+        </div>
+        <input type="hidden" name="{{.CsrfKey}}" value={{.CsrfToken}}>
+    </form>
 </div>
 {{end}}
 
