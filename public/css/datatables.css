@@ -2,11 +2,7 @@
  * Table styles
  */
 table.dataTable {
-  width: 100%;
-  margin: 0 auto;
-  clear: both;
-  border-collapse: separate;
-  border-spacing: 0;
+  width: 100% !important;
   /*
    * Header and footer styles
    */
@@ -218,7 +214,7 @@ table.dataTable td {
     .dataTables_wrapper .dataTables_filter input {
       margin-left: 0.5em; 
       height: 40px;
-      font-size: 1.73rem;
+      font-size: 12px;
       background: none;
       border-color: rgba(210,215,255,0.1);
       border-radius: 4px;
