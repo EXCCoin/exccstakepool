@@ -91,7 +91,7 @@ ticketbuyer.maxpriceabsolute=100
                         <tbody>
                             {{ range $i, $data := .TicketsLive }}
                             <tr>
-                                <td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+                                <td><a href="https://{{if not (eq $.Network "mainnet")}}{{$.Network}}-{{end}}explorer.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
                                 <td>{{ $data.TicketHeight }}</td>
                             </tr>
                             {{end}}
@@ -125,8 +125,8 @@ ticketbuyer.maxpriceabsolute=100
                         <tbody>
                             {{ range $i, $data := .TicketsVoted }}
                             <tr>
-                                <td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
-                                <td><a href="https://{{$.Network}}.excc.co/tx/{{$data.SpentBy}}" target="_blank">{{$data.SpentByHeight}}</a></td>
+                                <td><a href="https://{{if not (eq $.Network "mainnet")}}{{$.Network}}-{{end}}explorer.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+                                <td><a href="https://{{if not (eq $.Network "mainnet")}}{{$.Network}}-{{end}}explorer.excc.co/tx/{{$data.SpentBy}}" target="_blank">{{$data.SpentByHeight}}</a></td>
                                 <td>{{$data.TicketHeight}}</td>
                             </tr>
                             {{end}}
@@ -156,7 +156,7 @@ ticketbuyer.maxpriceabsolute=100
                     <p><b>Caution!</b> Missed tickets can be caused by a poorly connected miner and may not be any fault of the pool.</p>
                 </div>
                 <div class="uk-overflow-auto">
-                    <table id="ticketsmissed" class="uk-table datatablesort uk-table-striped">
+                    <table id="ticketsmissed" class="uk-table uk-table-striped datatablesort">
                         <thead>
                             <tr>
                                 <th>Ticket</th>
@@ -167,7 +167,7 @@ ticketbuyer.maxpriceabsolute=100
                         <tbody>
                             {{ range $i, $data := .TicketsMissed }}
                             <tr>
-                                <td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+                                <td><a href="https://{{if not (eq $.Network "mainnet")}}{{$.Network}}-{{end}}explorer.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
                                 <td>{{$data.SpentByHeight}}</td>
                                 <td>{{$data.TicketHeight}}</td>
                             </tr>
@@ -194,7 +194,7 @@ ticketbuyer.maxpriceabsolute=100
                 {{end}}
                 {{if .TicketsExpired}}
                 <div class="uk-overflow-auto">
-                    <table id="ticketsexpired" class="uk-table datatablesort uk-table-striped">
+                    <table id="ticketsexpired" class="uk-table uk-table-striped datatablesort">
                         <thead>
                             <tr>
                                 <th>Ticket</th>
@@ -205,7 +205,7 @@ ticketbuyer.maxpriceabsolute=100
                         <tbody>
                             {{ range $i, $data := .TicketsExpired }}
                             <tr>
-                                <td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+                                <td><a href="https://{{if not (eq $.Network "mainnet")}}{{$.Network}}-{{end}}explorer.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
                                 <td>{{$data.SpentByHeight}}</td>
                                 <td>{{$data.TicketHeight}}</td>
                             </tr>
@@ -236,7 +236,7 @@ ticketbuyer.maxpriceabsolute=100
                     <p><b>Alert!</b> Tickets appearing here did not pay the correct pool fee. You will either need to vote these tickets yourself or contact your stake pool administrator to have them add the ticket to the pool manually.</p>
                 </div>
                 <div class="uk-overflow-auto">
-                    <table id="ticketsinvalid" class="uk-table uk-table-striped">
+                    <table id="ticketsinvalid" class="uk-table uk-table-striped datatablesort">
                         <thead>
                             <tr>
                                 <th>Ticket</th>
@@ -245,7 +245,7 @@ ticketbuyer.maxpriceabsolute=100
                         <tbody>
                             {{ range $i, $data := .TicketsInvalid }}
                             <tr>
-                                <td><a href="https://{{$.Network}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
+                                <td><a href="https://{{if not (eq $.Network "mainnet")}}{{$.Network}}-{{end}}.excc.co/tx/{{$data.Ticket}}" target="_blank">{{$data.Ticket}}</a></td>
                             </tr>
                             {{end}}
                         </tbody>
