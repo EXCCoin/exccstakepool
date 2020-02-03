@@ -12,6 +12,8 @@ RUN go build -ldflags='-s -w -X main.appBuild=alpine3.9 -extldflags "-static"' .
 
 FROM alpine:3.9
 
+RUN apk update && apk upgrade && apk add --no-cache ca-certificates && update-ca-certificates 2>/dev/null || true
+
 WORKDIR /app
 COPY --from=builder /go/src/github.com/EXCCoin/exccstakepool/exccstakepool .
 COPY ./views ./views
